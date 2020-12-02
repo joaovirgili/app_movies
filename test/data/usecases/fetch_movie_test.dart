@@ -40,7 +40,7 @@ void main() {
 
     final future = sut.fetch(params);
 
-    expect(future, throwsA(DomainError.unexpected));
+    expect(future, throwsA(DomainError.invalidCredentials));
   });
 
   test('Should throw Unauthorized if HttpClient returns 404', () async {

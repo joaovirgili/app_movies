@@ -28,6 +28,9 @@ class FetchMovies {
         case HttpError.notFound:
           throw DomainError.notFound;
           break;
+        case HttpError.unauthorized:
+          throw DomainError.invalidCredentials;
+          break;
         default:
           throw DomainError.unexpected;
       }
