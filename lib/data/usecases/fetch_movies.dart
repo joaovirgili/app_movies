@@ -1,5 +1,6 @@
 import 'package:meta/meta.dart';
 
+import '../../domain/helpers/helpers.dart';
 import '../../domain/usecases/usecases.dart';
 import '../../key/key.dart';
 import '../../shared/api/api.dart';
@@ -17,9 +18,13 @@ class FetchMovies {
       'language': params.language,
     };
 
-    httpClient.get(
-      url: '${Api.baseUrl}$path${params.id}',
-      queryParameters: queryParameters,
-    );
+    try {
+      httpClient.get(
+        url: '${Api.baseUrl}$path${params.id}',
+        queryParameters: queryParameters,
+      );
+    } on HttpError {
+      throw DomainError.unauthorized;
+    }
   }
 }
