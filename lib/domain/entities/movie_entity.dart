@@ -1,5 +1,5 @@
 class MovieEntity {
-  final String id;
+  final int id;
   final String title;
   final double voteAverage;
 

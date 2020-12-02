@@ -1,15 +1,18 @@
-import 'package:faker/faker.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:meta/meta.dart';
 
-class FetchCars {
-  final HttpClient httpClient;
-  final String url;
+import 'package:movies/domain/usecases/usecases.dart';
+import 'package:movies/shared/api/api.dart';
 
-  FetchCars({@required this.httpClient, @required this.url});
-  Future<void> fetch() async {
-    httpClient.get(url: url);
+class FetchMovies {
+  final HttpClient httpClient;
+  final String path;
+
+  FetchMovies({@required this.httpClient, @required this.path});
+
+  Future<void> fetch(FetchMovieParams params) async {
+    httpClient.get(url: '${Api.baseUrl}/$path/${params.id}');
   }
 }
 
@@ -20,18 +23,19 @@ abstract class HttpClient {
 class HttpClientMock extends Mock implements HttpClient {}
 
 void main() {
-  FetchCars sut;
+  FetchMovies sut;
   HttpClient httpClient;
-  String url;
+  String path;
 
   setUp(() {
     httpClient = HttpClientMock();
-    url = faker.internet.httpUrl();
-    sut = FetchCars(httpClient: httpClient, url: url);
+    path = 'movie';
+    sut = FetchMovies(httpClient: httpClient, path: path);
   });
   test('Should call HttpClient get with correct URL', () async {
-    await sut.fetch();
+    final params = FetchMovieParams(id: 550);
+    await sut.fetch(params);
 
-    verify(httpClient.get(url: url));
+    verify(httpClient.get(url: '${Api.baseUrl}/$path/${params.id}'));
   });
 }
