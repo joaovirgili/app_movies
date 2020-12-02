@@ -23,8 +23,14 @@ class FetchMovies {
         url: '${Api.baseUrl}$path${params.id}',
         queryParameters: queryParameters,
       );
-    } on HttpError {
-      throw DomainError.unauthorized;
+    } on HttpError catch (e) {
+      switch (e) {
+        case HttpError.notFound:
+          throw DomainError.notFound;
+          break;
+        default:
+          throw DomainError.unexpected;
+      }
     }
   }
 }

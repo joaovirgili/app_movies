@@ -1,1 +1,1 @@
-enum DomainError { unauthorized }
+enum DomainError { unexpected, notFound }
