@@ -13,13 +13,14 @@ class HttpClientMock extends Mock implements HttpClient {}
 void main() {
   FetchMovies sut;
   HttpClient httpClient;
+  FetchMovieParams params;
 
   setUp(() {
     httpClient = HttpClientMock();
     sut = FetchMovies(httpClient: httpClient, path: Api.movie);
+    params = FetchMovieParams(id: 550, language: 'pt-br');
   });
   test('Should call HttpClient get with correct URL', () async {
-    final params = FetchMovieParams(id: 550, language: 'pt-br');
     await sut.fetch(params);
 
     verify(httpClient.get(
@@ -37,7 +38,6 @@ void main() {
       queryParameters: anyNamed('queryParameters'),
     )).thenThrow(HttpError.unauthorized);
 
-    final params = FetchMovieParams(id: 550, language: 'pt-br');
     final future = sut.fetch(params);
 
     expect(future, throwsA(DomainError.unauthorized));
