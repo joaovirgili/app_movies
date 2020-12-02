@@ -8,6 +8,7 @@ abstract class IFetchMovie {
 
 class FetchMovieParams {
   final int id;
+  final String language;
 
-  FetchMovieParams({@required this.id});
+  FetchMovieParams({@required this.id, this.language});
 }
