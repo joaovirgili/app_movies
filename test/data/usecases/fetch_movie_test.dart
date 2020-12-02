@@ -20,11 +20,16 @@ abstract class HttpClient {
 class HttpClientMock extends Mock implements HttpClient {}
 
 void main() {
-  test('Should call HttpClient get with correct URL', () async {
-    final httpClient = HttpClientMock();
-    final url = faker.internet.httpUrl();
-    final sut = FetchCars(httpClient: httpClient, url: url);
+  FetchCars sut;
+  HttpClient httpClient;
+  String url;
 
+  setUp(() {
+    httpClient = HttpClientMock();
+    url = faker.internet.httpUrl();
+    sut = FetchCars(httpClient: httpClient, url: url);
+  });
+  test('Should call HttpClient get with correct URL', () async {
     await sut.fetch();
 
     verify(httpClient.get(url: url));
