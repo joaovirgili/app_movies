@@ -20,12 +20,18 @@ class HttpAdapter {
 }
 
 void main() {
+  DioMock client;
+  HttpAdapter sut;
+  String url;
+
+  setUp(() {
+    client = DioMock();
+    sut = HttpAdapter(client);
+    url = faker.internet.httpUrl();
+  });
+
   group('get', () {
     test('Should call get with correct values', () async {
-      final client = DioMock();
-      final sut = HttpAdapter(client);
-      final url = faker.internet.httpUrl();
-
       await sut.get(url: url);
 
       verify(client.get(url));
