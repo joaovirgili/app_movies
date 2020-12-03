@@ -22,6 +22,17 @@ void main() {
     params = FetchMovieParams(id: 550, language: 'pt-br');
   });
   test('Should call HttpClient get with correct URL', () async {
+    final responseMock = {
+      'title': faker.person.name(),
+      'id': faker.randomGenerator.integer(550, min: 2),
+      'voteAverage': 8.5,
+    };
+
+    when(httpClient.get(
+      url: anyNamed('url'),
+      queryParameters: anyNamed('queryParameters'),
+    )).thenAnswer((_) async => responseMock);
+
     await sut.fetch(params);
 
     verify(httpClient.get(
