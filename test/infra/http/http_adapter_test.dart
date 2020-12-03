@@ -49,18 +49,28 @@ void main() {
 
       verify(client.get(url, queryParameters: queryParametersMock));
     });
+
     test('Should call get without queryParameters', () async {
       mockRequest().thenAnswer(mockResponse);
       await sut.get(url: url);
 
       verify(client.get(url));
     });
+
     test('Should return data if get returns 200', () async {
       mockRequest().thenAnswer(mockResponse);
 
       final data = await sut.get(url: url);
 
       expect(data, {'a': 'a'});
+    });
+
+    test('Should return null if get returns 200 with no data', () async {
+      mockRequest().thenAnswer((_) async => Response());
+
+      final data = await sut.get(url: url);
+
+      expect(data, null);
     });
   });
 }
