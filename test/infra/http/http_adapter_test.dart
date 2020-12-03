@@ -13,9 +13,9 @@ class HttpAdapter {
 
   Future<void> get({
     @required String url,
-    Map<String, String> queryParameters,
+    Map<String, dynamic> queryParameters,
   }) async {
-    return dio.get(url);
+    return dio.get(url, queryParameters: queryParameters);
   }
 }
 
@@ -23,6 +23,8 @@ void main() {
   DioMock client;
   HttpAdapter sut;
   String url;
+
+  final queryParametersMock = {'apiKey': ''};
 
   setUp(() {
     client = DioMock();
@@ -32,9 +34,9 @@ void main() {
 
   group('get', () {
     test('Should call get with correct values', () async {
-      await sut.get(url: url);
+      await sut.get(url: url, queryParameters: queryParametersMock);
 
-      verify(client.get(url));
+      verify(client.get(url, queryParameters: queryParametersMock));
     });
   });
 }
