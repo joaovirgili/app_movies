@@ -38,5 +38,10 @@ void main() {
 
       verify(client.get(url, queryParameters: queryParametersMock));
     });
+    test('Should call get without queryParameters', () async {
+      await sut.get(url: url);
+
+      verify(client.get(url));
+    });
   });
 }
