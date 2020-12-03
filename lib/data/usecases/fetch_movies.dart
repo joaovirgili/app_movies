@@ -8,12 +8,13 @@ import '../../shared/api/api.dart';
 import '../http/http.dart';
 import '../models/movie_model.dart';
 
-class FetchMovies {
+class FetchMovie implements IFetchMovie {
   final HttpClient httpClient;
   final String path;
 
-  FetchMovies({@required this.httpClient, @required this.path});
+  FetchMovie({@required this.httpClient, @required this.path});
 
+  @override
   Future<MovieEntity> fetch(FetchMovieParams params) async {
     final queryParameters = {
       'api_key': apiKey,

@@ -12,7 +12,7 @@ import 'package:movies/shared/api/api.dart';
 class HttpClientMock extends Mock implements HttpClient {}
 
 void main() {
-  FetchMovies sut;
+  FetchMovie sut;
   HttpClient httpClient;
   FetchMovieParams params;
   Map responseMock;
@@ -24,7 +24,7 @@ void main() {
 
   setUp(() {
     httpClient = HttpClientMock();
-    sut = FetchMovies(httpClient: httpClient, path: Api.movie);
+    sut = FetchMovie(httpClient: httpClient, path: Api.movie);
     params = FetchMovieParams(id: 550, language: 'pt-br');
     responseMock = {
       'title': faker.person.name(),
