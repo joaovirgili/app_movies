@@ -40,6 +40,8 @@ class FetchGenreList implements IFetchGenreList {
         default:
           throw DomainError.unexpected;
       }
+    } catch (_) {
+      throw DomainError.unexpected;
     }
   }
 }

@@ -86,4 +86,13 @@ void main() {
 
     expect(future, throwsA(DomainError.unexpected));
   });
+
+  test('Should throw Unexpected if HttpClient returns any other error',
+      () async {
+    mockRequest().thenThrow(Exception());
+
+    final future = sut.fetch();
+
+    expect(future, throwsA(DomainError.unexpected));
+  });
 }
