@@ -2,11 +2,11 @@ import 'package:faker/faker.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
+import 'package:movies/core/key.dart';
 import 'package:movies/data/http/http.dart';
 import 'package:movies/data/usecases/usecases.dart';
 import 'package:movies/domain/helpers/helpers.dart';
 import 'package:movies/domain/usecases/usecases.dart';
-import 'package:movies/key/key.dart';
 import 'package:movies/shared/api/api.dart';
 
 class HttpClientMock extends Mock implements HttpClient {}

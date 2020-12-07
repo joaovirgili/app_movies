@@ -1,9 +1,9 @@
 import 'package:meta/meta.dart';
 
+import '../../core/key.dart';
 import '../../domain/entities/entities.dart';
 import '../../domain/helpers/helpers.dart';
 import '../../domain/usecases/usecases.dart';
-import '../../key/key.dart';
 import '../../shared/api/api.dart';
 import '../http/http.dart';
 import '../models/movie_model.dart';
