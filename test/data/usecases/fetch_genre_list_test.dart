@@ -1,10 +1,11 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:movies/core/key.dart';
 
+import 'package:movies/core/key.dart';
 import 'package:movies/data/http/http.dart';
 import 'package:movies/data/usecases/fetch_genre_list.dart';
 import 'package:movies/domain/entities/entities.dart';
+import 'package:movies/domain/helpers/helpers.dart';
 import 'package:movies/shared/api/api.dart';
 
 class HttpClientMock extends Mock implements HttpClient {}
@@ -60,5 +61,13 @@ void main() {
     final genreList = await sut.fetch();
 
     expect(genreList, isNull);
+  });
+
+  test('Should throw Unauthorized if HttpClient returns 401', () async {
+    mockRequest().thenThrow(HttpError.unauthorized);
+
+    final future = sut.fetch();
+
+    expect(future, throwsA(DomainError.invalidCredentials));
   });
 }
