@@ -34,6 +34,9 @@ class FetchGenreList implements IFetchGenreList {
         case HttpError.unauthorized:
           throw DomainError.invalidCredentials;
           break;
+        case HttpError.notFound:
+          throw DomainError.notFound;
+          break;
         default:
           throw DomainError.unexpected;
       }

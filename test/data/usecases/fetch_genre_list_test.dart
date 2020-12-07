@@ -70,4 +70,12 @@ void main() {
 
     expect(future, throwsA(DomainError.invalidCredentials));
   });
+
+  test('Should throw NotFound if HttpClient returns 404', () async {
+    mockRequest().thenThrow(HttpError.notFound);
+
+    final future = sut.fetch();
+
+    expect(future, throwsA(DomainError.notFound));
+  });
 }
