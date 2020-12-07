@@ -32,6 +32,14 @@ void main() {
       'voteAverage': 8.5,
     };
   });
+
+  test('Should return Movie if HttpClient returns 200', () async {
+    mockRequest().thenAnswer((_) async => responseMock);
+
+    final movie = await sut.fetch(params);
+
+    expect(movie.id, responseMock['id']);
+  });
   test('Should call HttpClient get with correct URL', () async {
     mockRequest().thenAnswer((_) async => responseMock);
 
@@ -77,13 +85,5 @@ void main() {
     final future = sut.fetch(params);
 
     expect(future, throwsA(DomainError.unexpected));
-  });
-
-  test('Should return Movie if HttpClient returns 200', () async {
-    mockRequest().thenAnswer((_) async => responseMock);
-
-    final movie = await sut.fetch(params);
-
-    expect(movie.id, responseMock['id']);
   });
 }
