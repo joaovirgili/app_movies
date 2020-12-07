@@ -22,8 +22,10 @@ class FetchGenreList implements IFetchGenreList {
       },
     );
 
-    return (httpResponse['genres'] as List<Map>)
-        .map((e) => GenreModel.fromJson(e).toEntity())
-        .toList();
+    return httpResponse.containsKey('genres')
+        ? (httpResponse['genres'] as List<Map>)
+            .map((e) => GenreModel.fromJson(e).toEntity())
+            .toList()
+        : null;
   }
 }

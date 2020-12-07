@@ -53,4 +53,12 @@ void main() {
     expect(genreList, isA<List<GenreEntity>>());
     expect(genreList, isNotEmpty);
   });
+
+  test('Should return null if HttpClient returns 200 with no data', () async {
+    mockRequest().thenAnswer((_) async => {});
+
+    final genreList = await sut.fetch();
+
+    expect(genreList, isNull);
+  });
 }
