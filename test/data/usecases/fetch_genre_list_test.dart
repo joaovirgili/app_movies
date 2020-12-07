@@ -78,4 +78,12 @@ void main() {
 
     expect(future, throwsA(DomainError.notFound));
   });
+
+  test('Should throw Unauthorized if HttpClient returns 500', () async {
+    mockRequest().thenThrow(HttpError.serverError);
+
+    final future = sut.fetch();
+
+    expect(future, throwsA(DomainError.unexpected));
+  });
 }
