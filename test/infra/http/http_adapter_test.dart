@@ -13,7 +13,7 @@ void main() {
   String url;
 
   final queryParametersMock = {'apiKey': ''};
-  final responseMock = {'a': 'a'};
+  final dataMock = {'a': 'a'};
 
   setUp(() {
     client = DioMock();
@@ -24,26 +24,34 @@ void main() {
   PostExpectation mockRequest({Map<String, dynamic> query}) =>
       when(client.get(any, queryParameters: query));
 
-  Future<Response<dynamic>> mockResponse(Invocation _) async =>
-      Response(data: responseMock);
+  Future<void> mockResponse(
+    int statusCode, {
+    Map<String, dynamic> query,
+    Map data,
+  }) async {
+    mockRequest(query: query).thenAnswer((_) async => Response(
+          statusCode: statusCode,
+          data: data,
+        ));
+  }
 
   group('get', () {
     test('Should call get with correct values', () async {
-      mockRequest(query: queryParametersMock).thenAnswer(mockResponse);
+      mockResponse(200, query: queryParametersMock);
       await sut.get(url: url, queryParameters: queryParametersMock);
 
       verify(client.get(url, queryParameters: queryParametersMock));
     });
 
     test('Should call get without queryParameters', () async {
-      mockRequest().thenAnswer(mockResponse);
+      mockResponse(200);
       await sut.get(url: url);
 
       verify(client.get(url));
     });
 
     test('Should return data if get returns 200', () async {
-      mockRequest().thenAnswer(mockResponse);
+      mockResponse(200, data: dataMock);
 
       final data = await sut.get(url: url);
 
@@ -51,7 +59,7 @@ void main() {
     });
 
     test('Should return null if get returns 200 with no data', () async {
-      mockRequest().thenAnswer((_) async => Response());
+      mockResponse(200);
 
       final data = await sut.get(url: url);
 
