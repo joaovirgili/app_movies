@@ -75,12 +75,20 @@ void main() {
       expect(future, throwsA(HttpError.badRequest));
     });
 
-    test('Should return Unauthrized if get returns 401', () async {
+    test('Should return Unauthorized if get returns 401', () async {
       mockResponse(401);
 
       final future = sut.get(url: url);
 
       expect(future, throwsA(HttpError.unauthorized));
+    });
+
+    test('Should return NotFound if get returns 404', () async {
+      mockResponse(404);
+
+      final future = sut.get(url: url);
+
+      expect(future, throwsA(HttpError.notFound));
     });
   });
 }
