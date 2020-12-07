@@ -4,6 +4,7 @@ import 'package:movies/core/key.dart';
 
 import 'package:movies/data/http/http.dart';
 import 'package:movies/data/usecases/fetch_genre_list.dart';
+import 'package:movies/domain/entities/entities.dart';
 import 'package:movies/shared/api/api.dart';
 
 class HttpClientMock extends Mock implements HttpClient {}
@@ -42,5 +43,14 @@ void main() {
         'language': Api.defaultLanguage,
       },
     ));
+  });
+
+  test('Should return list of GenreEntity if HttpClient returns 200', () async {
+    mockRequest().thenAnswer((_) async => responseMock);
+
+    final genreList = await sut.fetch();
+
+    expect(genreList, isA<List<GenreEntity>>());
+    expect(genreList, isNotEmpty);
   });
 }
