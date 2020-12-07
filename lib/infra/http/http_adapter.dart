@@ -13,7 +13,28 @@ class HttpAdapter implements HttpClient {
     @required String url,
     Map<String, dynamic> queryParameters,
   }) async {
-    final dioResponse = await dio.get(url, queryParameters: queryParameters);
-    return dioResponse.data as Map;
+    final dioResponse = await dio.get(
+      url,
+      queryParameters: queryParameters,
+    );
+
+    return _handleResponse(dioResponse);
+  }
+
+  Map _handleResponse(Response response) {
+    switch (response.statusCode) {
+      case 200:
+        return response.data as Map;
+        break;
+      case 400:
+        throw HttpError.badRequest;
+        break;
+      case 401:
+        throw HttpError.unauthorized;
+        break;
+      default:
+        throw HttpError.serverError;
+        break;
+    }
   }
 }

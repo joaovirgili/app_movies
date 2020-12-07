@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:faker/faker.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:movies/data/http/http.dart';
 
 import 'package:movies/infra/http/http.dart';
 
@@ -21,8 +22,8 @@ void main() {
     url = faker.internet.httpUrl();
   });
 
-  PostExpectation mockRequest({Map<String, dynamic> query}) =>
-      when(client.get(any, queryParameters: query));
+  PostExpectation mockRequest({Map<String, dynamic> query}) => when(
+      client.get(any, queryParameters: query, options: anyNamed('options')));
 
   Future<void> mockResponse(
     int statusCode, {
@@ -64,6 +65,22 @@ void main() {
       final data = await sut.get(url: url);
 
       expect(data, null);
+    });
+
+    test('Should return BadRequest if get returns 400', () async {
+      mockResponse(400);
+
+      final future = sut.get(url: url);
+
+      expect(future, throwsA(HttpError.badRequest));
+    });
+
+    test('Should return Unauthrized if get returns 401', () async {
+      mockResponse(401);
+
+      final future = sut.get(url: url);
+
+      expect(future, throwsA(HttpError.unauthorized));
     });
   });
 }
