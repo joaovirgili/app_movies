@@ -13,16 +13,16 @@ class HttpAdapter implements HttpClient {
     @required String url,
     Map<String, dynamic> queryParameters,
   }) async {
+    Response<dynamic> dioResponse;
     try {
-      final dioResponse = await dio.get(
+      dioResponse = await dio.get(
         url,
         queryParameters: queryParameters,
       );
-
-      return _handleResponse(dioResponse);
     } catch (e) {
       throw HttpError.serverError;
     }
+    return _handleResponse(dioResponse);
   }
 
   Map _handleResponse(Response response) {
