@@ -1,2 +1,2 @@
-export 'fetch_genre_list.dart';
-export 'fetch_movie.dart';
+export 'fetch_genre_list_usecase.dart';
+export 'fetch_movie_usecase.dart';
