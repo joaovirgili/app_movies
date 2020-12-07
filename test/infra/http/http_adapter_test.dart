@@ -36,6 +36,8 @@ void main() {
         ));
   }
 
+  void mockError() => mockRequest().thenThrow(Exception());
+
   group('get', () {
     test('Should call get with correct values', () async {
       mockResponse(200, query: queryParametersMock);
@@ -89,6 +91,14 @@ void main() {
       final future = sut.get(url: url);
 
       expect(future, throwsA(HttpError.notFound));
+    });
+
+    test('Should return ServerError if get throws an Exception', () async {
+      mockError();
+
+      final future = sut.get(url: url);
+
+      expect(future, throwsA(HttpError.serverError));
     });
   });
 }
