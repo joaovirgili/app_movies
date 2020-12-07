@@ -38,6 +38,8 @@ class FetchMovie implements IFetchMovie {
         default:
           throw DomainError.unexpected;
       }
+    } catch (e) {
+      throw DomainError.unexpected;
     }
   }
 }

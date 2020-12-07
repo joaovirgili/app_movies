@@ -54,12 +54,21 @@ void main() {
     expect(future, throwsA(DomainError.invalidCredentials));
   });
 
-  test('Should throw Unauthorized if HttpClient returns 404', () async {
+  test('Should throw NotFound if HttpClient returns 404', () async {
     mockRequest().thenThrow(HttpError.notFound);
 
     final future = sut.fetch(params);
 
     expect(future, throwsA(DomainError.notFound));
+  });
+
+  test('Should throw Unexpected if HttpClient returns any other error',
+      () async {
+    mockRequest().thenThrow(Exception());
+
+    final future = sut.fetch(params);
+
+    expect(future, throwsA(DomainError.unexpected));
   });
 
   test('Should throw Unauthorized if HttpClient returns 500', () async {
