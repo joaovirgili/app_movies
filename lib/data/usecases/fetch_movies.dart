@@ -6,7 +6,7 @@ import '../../domain/helpers/helpers.dart';
 import '../../domain/usecases/usecases.dart';
 import '../../shared/api/api.dart';
 import '../http/http.dart';
-import '../models/movie_model.dart';
+import '../models/models.dart';
 
 class FetchMovie implements IFetchMovie {
   final HttpClient httpClient;
