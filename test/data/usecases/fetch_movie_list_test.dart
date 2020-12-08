@@ -1,4 +1,3 @@
-import 'package:faker/faker.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
@@ -28,9 +27,17 @@ void main() {
     sut = FetchMovieList(httpClient: httpClient);
     params = FetchMovieListParams(language: 'pt-br');
     responseMock = {
-      'title': faker.person.name(),
-      'id': faker.randomGenerator.integer(550, min: 2),
-      'voteAverage': 8.5,
+      'page': 1,
+      'results': [
+        {
+          'backdrop_path': '/jeAQdDX9nguP6YOX6QSWKDPkbBo.jpg',
+          'genre_ids': [28, 14, 878],
+          'id': 590706,
+          'title': 'Jiu Jitsu'
+        }
+      ],
+      'total_pages': 500,
+      'total_results': 10000
     };
   });
 
@@ -48,12 +55,21 @@ void main() {
     ));
   });
 
-  test('Should return Movie if HttpClient returns 200', () async {
+  test('Should return MovieListPageEntity if HttpClient returns 200', () async {
     mockRequest().thenAnswer((_) async => responseMock);
 
-    final movieList = await sut.fetch(params);
+    final movieListPage = await sut.fetch(params);
 
-    expect(movieList, isA<List<MovieEntity>>());
+    expect(movieListPage, isA<MovieListPageEntity>());
+  });
+
+  test('Should return Unexpected if HttpClient returns 200 with no data',
+      () async {
+    mockRequest().thenAnswer((_) async => null);
+
+    final future = sut.fetch(params);
+
+    expect(future, throwsA(DomainError.unexpected));
   });
 
   test('Should throw Unauthorized if HttpClient returns 401', () async {
