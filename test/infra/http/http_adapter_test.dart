@@ -25,11 +25,11 @@ void main() {
   PostExpectation mockRequest({Map<String, dynamic> query}) => when(
       client.get(any, queryParameters: query, options: anyNamed('options')));
 
-  Future<void> mockResponse(
+  void mockResponse(
     int statusCode, {
     Map<String, dynamic> query,
     Map data,
-  }) async {
+  }) {
     mockRequest(query: query).thenAnswer((_) async => Response(
           statusCode: statusCode,
           data: data,
