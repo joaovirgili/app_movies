@@ -2,8 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:faker/faker.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:movies/data/http/http.dart';
 
+import 'package:movies/data/http/http.dart';
 import 'package:movies/infra/http/http.dart';
 
 class DioMock extends Mock implements Dio {}

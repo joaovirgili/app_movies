@@ -3,7 +3,7 @@ import 'package:mockito/mockito.dart';
 
 import 'package:movies/core/key.dart';
 import 'package:movies/data/http/http.dart';
-import 'package:movies/data/usecases/fetch_genre_list.dart';
+import 'package:movies/data/usecases/usecases.dart';
 import 'package:movies/domain/entities/entities.dart';
 import 'package:movies/domain/helpers/helpers.dart';
 import 'package:movies/shared/api/api.dart';
