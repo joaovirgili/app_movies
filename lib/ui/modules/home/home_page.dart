@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../shared/assets.dart';
 import '../../shared/components/space_x_widget.dart';
@@ -61,7 +62,16 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
     );
   }
 
-  Container _buildGenreLoading() => Container(); // TODO
+  Widget _buildGenreLoading() => Shimmer.fromColors(
+        baseColor: Colors.grey[300],
+        highlightColor: Colors.grey[100],
+        child: ListView.separated(
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, i) => BadgeShimmerLoadingWidget(),
+          separatorBuilder: (context, i) => SpaceX(12),
+          itemCount: 5,
+        ),
+      );
 
   ListView _buildGenreListView() {
     return ListView.separated(

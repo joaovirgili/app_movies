@@ -40,3 +40,20 @@ class GenreBadgeWidget extends StatelessWidget {
     );
   }
 }
+
+class BadgeShimmerLoadingWidget extends StatelessWidget {
+  const BadgeShimmerLoadingWidget({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 75,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25),
+        color: Colors.white,
+      ),
+    );
+  }
+}
