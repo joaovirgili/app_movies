@@ -3,6 +3,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../shared/assets.dart';
+import '../../shared/components/space_y_widget.dart';
 import 'home_controller.dart';
 
 class HomePage extends StatefulWidget {
@@ -24,6 +25,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
             title: Text('Filmes'),
             centerTitle: false,
           ),
+          SliverToBoxAdapter(child: const SpaceY(10)),
           SliverToBoxAdapter(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w),
