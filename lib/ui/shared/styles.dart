@@ -13,7 +13,7 @@ class AppStyles {
 
   static final textFieldHintStyle = GoogleFonts.montserrat(
     fontSize: 14.sp,
-    fontWeight: FontWeight.w400,
+    fontWeight: FontWeight.w300,
     color: AppColors.gray04,
   );
 
