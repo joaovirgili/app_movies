@@ -5,4 +5,6 @@ class Api {
   static const discover = 'discover/movie/';
 
   static const defaultLanguage = 'pt-br';
+
+  static const imageBaseUrl = 'https://image.tmdb.org/t/p/w500/';
 }
