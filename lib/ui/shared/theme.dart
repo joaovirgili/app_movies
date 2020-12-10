@@ -4,6 +4,7 @@ import 'colors.dart';
 import 'styles.dart';
 
 final appTheme = ThemeData(
+  scaffoldBackgroundColor: AppColors.white,
   primaryColor: AppColors.gray02,
   accentColor: AppColors.gray02,
   appBarTheme: AppBarTheme(
