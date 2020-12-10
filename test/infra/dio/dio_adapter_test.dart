@@ -4,13 +4,13 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
 import 'package:movies/data/http/http.dart';
-import 'package:movies/infra/http/http.dart';
+import 'package:movies/infra/dio/dio.dart';
 
 class DioMock extends Mock implements Dio {}
 
 void main() {
   DioMock client;
-  HttpAdapter sut;
+  DioAdapter sut;
   String url;
 
   final queryParametersMock = {'apiKey': ''};
@@ -18,7 +18,7 @@ void main() {
 
   setUp(() {
     client = DioMock();
-    sut = HttpAdapter(client);
+    sut = DioAdapter(client);
     url = faker.internet.httpUrl();
   });
 

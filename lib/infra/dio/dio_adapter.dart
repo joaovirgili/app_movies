@@ -3,10 +3,10 @@ import 'package:meta/meta.dart';
 
 import '../../data/http/http.dart';
 
-class HttpAdapter implements HttpClient {
+class DioAdapter implements HttpClient {
   final Dio dio;
 
-  HttpAdapter(this.dio);
+  DioAdapter(this.dio);
 
   @override
   Future<Map> get({
