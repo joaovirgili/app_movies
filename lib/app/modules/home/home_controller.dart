@@ -55,8 +55,8 @@ abstract class _HomeControllerBase with Store {
   bool isLoadingMovie = true;
 
   _HomeControllerBase() {
-    _fetchGenreList();
-    // _fetchMovieList();
+    // fetchGenreList();
+    // fetchMovieList();
   }
 
   @action
@@ -76,7 +76,7 @@ abstract class _HomeControllerBase with Store {
   @action
   void setSelectedGenre(GenreUiModel genre) => selectedGenre = genre;
 
-  Future<void> _fetchGenreList() async {
+  Future<void> fetchGenreList() async {
     setIsLoadingGenre(true);
     await Future.delayed(const Duration(seconds: 1));
     setGenreList([
@@ -89,7 +89,7 @@ abstract class _HomeControllerBase with Store {
     setIsLoadingGenre(false);
   }
 
-  Future<void> _fetchMovieList() async {
+  Future<void> fetchMovieList() async {
     setIsLoadingMovie(true);
     await Future.delayed(const Duration(seconds: 1));
     setMovieList([
