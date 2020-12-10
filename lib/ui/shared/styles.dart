@@ -19,13 +19,13 @@ class AppStyles {
 
   static final badgeTextStyle = GoogleFonts.montserrat(
     fontSize: 14.sp,
-    fontWeight: FontWeight.w400,
+    fontWeight: FontWeight.w300,
     color: AppColors.blue01,
   );
 
   static final selectedBadgeTextStyle = GoogleFonts.montserrat(
     fontSize: 14.sp,
-    fontWeight: FontWeight.w400,
+    fontWeight: FontWeight.w300,
     color: AppColors.white,
   );
 
@@ -37,7 +37,7 @@ class AppStyles {
 
   static final cardSubTitleTextStyle = GoogleFonts.montserrat(
     fontSize: 10.sp,
-    fontWeight: FontWeight.w400,
+    fontWeight: FontWeight.w300,
     color: AppColors.white,
   );
 
