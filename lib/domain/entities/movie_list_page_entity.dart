@@ -1,5 +1,3 @@
-import 'package:meta/meta.dart';
-
 class MovieListPageEntity {
   MovieListPageEntity({
     this.page,
@@ -16,10 +14,10 @@ class MovieListPageEntity {
 
 class MoviePreviewEntity {
   MoviePreviewEntity({
-    @required this.genreIds,
-    @required this.id,
-    @required this.posterPath,
-    @required this.title,
+    this.genreIds,
+    this.id,
+    this.posterPath,
+    this.title,
   });
 
   final List<int> genreIds;

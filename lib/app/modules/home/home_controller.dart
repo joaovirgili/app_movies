@@ -10,9 +10,10 @@ part 'home_controller.g.dart';
 @Injectable()
 class HomeController = _HomeControllerBase with _$HomeController;
 
-abstract class _HomeControllerBase with Store {
+abstract class _HomeControllerBase with Store implements Disposable {
   final IFetchGenreListUsecase fetchGenreListUsecase;
   final IFetchMovieListByGenre fetchMovieListByGenreUsecase;
+  ReactionDisposer filterReaction;
 
   @observable
   ObservableList<GenreEntity> genreList = <GenreEntity>[].asObservable();
@@ -41,6 +42,13 @@ abstract class _HomeControllerBase with Store {
     @required this.fetchMovieListByGenreUsecase,
   }) {
     fetchGenreList().then((_) => fetchMovieList());
+    filterReaction =
+        reaction<String>((_) => filterText, (msg) => filterMovies(msg));
+  }
+
+  @action
+  void filterMovies(String msg) {
+    movieList.where((movie) => filterByTitle(movie, msg));
   }
 
   @action
@@ -87,5 +95,13 @@ abstract class _HomeControllerBase with Store {
 
   void onChangeFilter(String text) {
     setFilterText(text);
+  }
+
+  bool filterByTitle(MoviePreviewEntity movie, String msg) =>
+      movie.title.toLowerCase().contains(msg.toLowerCase());
+
+  @override
+  void dispose() {
+    filterReaction();
   }
 }
