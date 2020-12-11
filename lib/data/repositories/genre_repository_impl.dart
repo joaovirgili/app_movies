@@ -3,18 +3,18 @@ import 'package:meta/meta.dart';
 import '../../core/key.dart';
 import '../../domain/entities/entities.dart';
 import '../../domain/helpers/helpers.dart';
-import '../../domain/usecases/usecases.dart';
+import '../../domain/repositories/repositories.dart';
 import '../../shared/api/api.dart';
 import '../http/http.dart';
 import '../models/models.dart';
 
-class FetchGenreList implements IFetchGenreList {
+class GenreRepository implements IGenreRepository {
   final HttpClient httpClient;
 
-  FetchGenreList({@required this.httpClient});
+  GenreRepository({@required this.httpClient});
 
   @override
-  Future<List<GenreEntity>> fetch({String language}) async {
+  Future<List<GenreEntity>> fetchGenreList({String language}) async {
     try {
       final httpResponse = await httpClient.get(
         url: '${Api.baseUrl}${Api.genreList}',
