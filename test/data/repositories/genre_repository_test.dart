@@ -21,7 +21,7 @@ void main() {
 
   group('Fetch genre list', () {
     final url = '${Api.baseUrl}${Api.genreList}';
-    final responseMock = {
+    final Map<dynamic, dynamic> responseMock = {
       'genres': [
         {'id': 28, 'name': 'Ação'},
         {'id': 12, 'name': 'Aventura'},

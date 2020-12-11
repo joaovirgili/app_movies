@@ -25,8 +25,8 @@ class GenreRepository implements IGenreRepository {
       );
 
       return httpResponse.containsKey('genres')
-          ? (httpResponse['genres'] as List<Map>)
-              .map((e) => GenreModel.fromJson(e).toEntity())
+          ? (httpResponse['genres'] as List)
+              .map((e) => GenreModel.fromJson(e as Map).toEntity())
               .toList()
           : null;
     } on HttpError catch (error) {
