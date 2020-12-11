@@ -14,10 +14,10 @@ class MovieRepository implements IMovieRepository {
   MovieRepository({@required this.httpClient});
 
   @override
-  Future<MovieEntity> fetchMovie(FetchMovieParams params) async {
+  Future<MoviePreviewEntity> fetchMovie(FetchMovieParams params) async {
     final queryParameters = {
       'api_key': apiKey,
-      'language': params.language,
+      'language': params.language ?? Api.defaultLanguage,
     };
 
     try {
@@ -25,7 +25,7 @@ class MovieRepository implements IMovieRepository {
         url: '${Api.baseUrl}${Api.movie}${params.id}',
         queryParameters: queryParameters,
       );
-      return MovieModel.fromJson(httpResponse).toEntity();
+      return MoviePreviewModel.fromJson(httpResponse).toEntity();
     } on HttpError catch (e) {
       switch (e) {
         case HttpError.notFound:
@@ -48,10 +48,12 @@ class MovieRepository implements IMovieRepository {
   ) async {
     try {
       final httpResponse = await httpClient.get(
-        url: '${Api.baseUrl}${Api.movie}',
+        url: '${Api.baseUrl}${Api.discover}',
         queryParameters: {
           'api_key': apiKey,
-          'language': params.language,
+          'language': params.language ?? Api.defaultLanguage,
+          'page': params.page,
+          'with_genres': params.genreId,
         },
       );
 

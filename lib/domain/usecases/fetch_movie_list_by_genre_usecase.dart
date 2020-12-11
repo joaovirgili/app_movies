@@ -5,22 +5,22 @@ import '../repositories/repositories.dart';
 
 abstract class IFetchMovieListByGenre {
   Future<MovieListPageEntity> call({
-    @required List<int> genresId,
+    @required int genreId,
     int page = 1,
   });
 }
 
 class FetchMovieListByGenre extends IFetchMovieListByGenre {
-  final IMovieRepository genreRepository;
+  final IMovieRepository movieRepository;
 
-  FetchMovieListByGenre({@required this.genreRepository});
+  FetchMovieListByGenre({@required this.movieRepository});
 
   Future<MovieListPageEntity> call({
-    @required List<int> genresId,
+    @required int genreId,
     int page = 1,
   }) {
-    return genreRepository.fetchMovieList(FetchMovieListParams(
-      genresId: genresId,
+    return movieRepository.fetchMovieList(FetchMovieListParams(
+      genreId: genreId,
       page: page,
     ));
   }

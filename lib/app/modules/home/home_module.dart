@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../data/http/http_client.dart';
-import '../../../data/repositories/genre_repository_impl.dart';
+import '../../../data/repositories/repositories.dart';
 import '../../../domain/repositories/repositories.dart';
 import '../../../domain/usecases/usecases.dart';
 import '../../../infra/dio/dio.dart';
@@ -16,8 +16,14 @@ class HomeModule extends ChildModule {
         BindInject<IFetchGenreListUsecase>(
           (i) => FetchGenreListUsecase(genreRepository: i<IGenreRepository>()),
         ),
+        BindInject<IFetchMovieListByGenre>(
+          (i) => FetchMovieListByGenre(movieRepository: i<IMovieRepository>()),
+        ),
         BindInject<IGenreRepository>(
           (i) => GenreRepository(httpClient: i<IHttpClient>()),
+        ),
+        BindInject<IMovieRepository>(
+          (i) => MovieRepository(httpClient: i<IHttpClient>()),
         ),
         BindInject<IHttpClient>((i) => DioAdapter(Dio())),
       ];

@@ -12,14 +12,14 @@ void main() {
 
   setUp(() {
     genreRepositoryMock = MovieRepositoryMock();
-    sut = FetchMovieListByGenre(genreRepository: genreRepositoryMock);
+    sut = FetchMovieListByGenre(movieRepository: genreRepositoryMock);
   });
 
   test('Should call repository fetchMovieList', () {
-    final genresId = [1, 2, 3];
-    sut.call(genresId: genresId);
+    final genreId = 1;
+    sut.call(genreId: genreId);
     verify(genreRepositoryMock.fetchMovieList(FetchMovieListParams(
-      genresId: genresId,
+      genreId: genreId,
     ))).called(1);
   });
 }

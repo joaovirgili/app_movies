@@ -1,3 +1,5 @@
+import 'package:meta/meta.dart';
+
 class MovieListPageEntity {
   MovieListPageEntity({
     this.page,
@@ -14,14 +16,27 @@ class MovieListPageEntity {
 
 class MoviePreviewEntity {
   MoviePreviewEntity({
-    this.backdropPath,
-    this.genreIds,
-    this.id,
-    this.title,
+    @required this.genreIds,
+    @required this.id,
+    @required this.posterPath,
+    @required this.title,
   });
 
-  final String backdropPath;
   final List<int> genreIds;
   final int id;
+  final String posterPath;
   final String title;
+
+  MoviePreviewEntity copyWith({
+    List<int> genreIds,
+    int id,
+    String posterPath,
+    String title,
+  }) =>
+      MoviePreviewEntity(
+        genreIds: genreIds ?? this.genreIds,
+        id: id ?? this.id,
+        posterPath: posterPath ?? this.posterPath,
+        title: title ?? this.title,
+      );
 }

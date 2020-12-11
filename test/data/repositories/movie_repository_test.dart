@@ -109,7 +109,7 @@ void main() {
       'total_pages': 500,
       'total_results': 10000
     };
-    final url = '${Api.baseUrl}${Api.movie}';
+    final url = '${Api.baseUrl}${Api.discover}';
 
     PostExpectation mockRequest() => when(httpClient.get(
           url: url,
@@ -126,6 +126,8 @@ void main() {
         queryParameters: {
           'api_key': apiKey,
           'language': params.language,
+          'page': params.page,
+          'with_genres': params.genreId,
         },
       ));
     });

@@ -7,7 +7,9 @@ part of 'home_controller.dart';
 // **************************************************************************
 
 final $HomeController = BindInject(
-  (i) => HomeController(fetchGenreListUsecase: i<IFetchGenreListUsecase>()),
+  (i) => HomeController(
+      fetchGenreListUsecase: i<IFetchGenreListUsecase>(),
+      fetchMovieListByGenreUsecase: i<IFetchMovieListByGenre>()),
   singleton: true,
   lazy: true,
 );
@@ -45,13 +47,13 @@ mixin _$HomeController on _HomeControllerBase, Store {
   final _$movieListAtom = Atom(name: '_HomeControllerBase.movieList');
 
   @override
-  ObservableList<MovieCardUiModel> get movieList {
+  ObservableList<MoviePreviewEntity> get movieList {
     _$movieListAtom.reportRead();
     return super.movieList;
   }
 
   @override
-  set movieList(ObservableList<MovieCardUiModel> value) {
+  set movieList(ObservableList<MoviePreviewEntity> value) {
     _$movieListAtom.reportWrite(value, super.movieList, () {
       super.movieList = value;
     });
@@ -117,7 +119,7 @@ mixin _$HomeController on _HomeControllerBase, Store {
   }
 
   @override
-  void setMovieList(List<MovieCardUiModel> movies) {
+  void setMovieList(List<MoviePreviewEntity> movies) {
     final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
         name: '_HomeControllerBase.setMovieList');
     try {

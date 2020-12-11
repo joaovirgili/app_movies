@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final movieListPageModel = movieListPageModelFromJson(jsonString);
-
 import 'dart:convert';
 
 import '../../domain/entities/entities.dart';
@@ -66,25 +62,25 @@ class MovieListPageModel {
 
 class MoviePreviewModel {
   MoviePreviewModel({
-    this.backdropPath,
+    this.posterPath,
     this.genreIds,
     this.id,
     this.title,
   });
 
-  final String backdropPath;
+  final String posterPath;
   final List<int> genreIds;
   final int id;
   final String title;
 
   MoviePreviewModel copyWith({
-    String backdropPath,
+    String posterPath,
     List<int> genreIds,
     int id,
     String title,
   }) =>
       MoviePreviewModel(
-        backdropPath: backdropPath ?? this.backdropPath,
+        posterPath: posterPath ?? this.posterPath,
         genreIds: genreIds ?? this.genreIds,
         id: id ?? this.id,
         title: title ?? this.title,
@@ -96,24 +92,25 @@ class MoviePreviewModel {
   String toRawJson() => json.encode(toJson());
 
   factory MoviePreviewModel.fromJson(Map json) => MoviePreviewModel(
-        backdropPath: json['backdrop_path'] as String,
-        genreIds:
-            json['genre_ids'] == null ? null : json['genre_ids'] as List<int>,
+        posterPath: json['poster_path'] as String,
+        genreIds: json['genre_ids'] == null
+            ? null
+            : (json['genre_ids'] as List).map((e) => e as int).toList(),
         id: json['id'] as int,
         title: json['title'] as String,
       );
 
   Map<String, dynamic> toJson() => {
-        'backdrop_path': backdropPath,
+        'poster_path': posterPath,
         'genre_ids': genreIds,
         'id': id,
         'title': title,
       };
 
   MoviePreviewEntity toEntity() => MoviePreviewEntity(
-        backdropPath: backdropPath,
         id: id,
         title: title,
         genreIds: genreIds,
+        posterPath: posterPath,
       );
 }

@@ -4,7 +4,6 @@ import 'package:mobx/mobx.dart';
 
 import '../../../domain/entities/entities.dart';
 import '../../../domain/usecases/usecases.dart';
-import 'models/movie_card_ui_model.dart';
 
 part 'home_controller.g.dart';
 
@@ -13,13 +12,14 @@ class HomeController = _HomeControllerBase with _$HomeController;
 
 abstract class _HomeControllerBase with Store {
   final IFetchGenreListUsecase fetchGenreListUsecase;
+  final IFetchMovieListByGenre fetchMovieListByGenreUsecase;
 
   @observable
   ObservableList<GenreEntity> genreList = <GenreEntity>[].asObservable();
 
   @observable
-  ObservableList<MovieCardUiModel> movieList =
-      <MovieCardUiModel>[].asObservable();
+  ObservableList<MoviePreviewEntity> movieList =
+      <MoviePreviewEntity>[].asObservable();
 
   @observable
   GenreEntity selectedGenre;
@@ -33,9 +33,11 @@ abstract class _HomeControllerBase with Store {
   @computed
   bool get showMovies => !isLoadingGenre && !isLoadingMovie;
 
-  _HomeControllerBase({@required this.fetchGenreListUsecase}) {
-    fetchGenreList();
-    // fetchMovieList();
+  _HomeControllerBase({
+    @required this.fetchGenreListUsecase,
+    @required this.fetchMovieListByGenreUsecase,
+  }) {
+    fetchGenreList().then((_) => fetchMovieList());
   }
 
   @action
@@ -43,7 +45,7 @@ abstract class _HomeControllerBase with Store {
       genreList = genres.asObservable();
 
   @action
-  void setMovieList(List<MovieCardUiModel> movies) =>
+  void setMovieList(List<MoviePreviewEntity> movies) =>
       movieList = movies.asObservable();
 
   @action
@@ -58,19 +60,21 @@ abstract class _HomeControllerBase with Store {
   Future<void> fetchGenreList() async {
     setIsLoadingGenre(true);
     setGenreList(await fetchGenreListUsecase());
+    setSelectedGenre(genreList[0]);
     setIsLoadingGenre(false);
   }
 
   Future<void> fetchMovieList() async {
     setIsLoadingMovie(true);
-    await Future.delayed(const Duration(seconds: 1));
+    final res = await fetchMovieListByGenreUsecase(genreId: selectedGenre.id);
+    setMovieList(res.movies);
     setIsLoadingMovie(false);
   }
 
   bool isGenreSelected(GenreEntity genre) => selectedGenre == genre;
 
-  List<String> genresToName(List<int> genresId) {
-    return genresId
+  List<String> genresToName(List<int> genreId) {
+    return genreId
         .map((e) => genreList.firstWhere((element) => element.id == e).name)
         .toList();
   }
