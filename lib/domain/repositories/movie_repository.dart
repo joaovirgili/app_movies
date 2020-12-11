@@ -1,6 +1,7 @@
-import '../entities/entities.dart';
-
+import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
+
+import '../entities/entities.dart';
 
 abstract class IMovieRepository {
   Future<MovieEntity> fetchMovie(FetchMovieParams params);
@@ -15,7 +16,7 @@ class FetchMovieParams {
   FetchMovieParams({@required this.id, this.language});
 }
 
-class FetchMovieListParams {
+class FetchMovieListParams extends Equatable {
   final String language;
   final List<int> genresId;
   final int page;
@@ -27,4 +28,7 @@ class FetchMovieListParams {
     this.page = 1,
     this.includeAdult = false,
   });
+
+  @override
+  List<Object> get props => [language, genresId, page, includeAdult];
 }
