@@ -52,7 +52,8 @@ class MovieCardWidget extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title, style: AppStyles.cardTitleTextStyle),
+                  Text(title.toUpperCase(),
+                      style: AppStyles.cardTitleTextStyle),
                   SpaceY(12),
                   Text(genres[0], style: AppStyles.cardSubTitleTextStyle),
                 ],
