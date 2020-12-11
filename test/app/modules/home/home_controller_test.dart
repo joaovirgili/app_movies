@@ -101,4 +101,14 @@ void main() {
       expect(sut.movieList, isNotEmpty);
     });
   });
+
+  group('filter Test', () {
+    test('OnChange field should change filterText property', () {
+      final text = 'text';
+
+      sut.onChangeFilter(text);
+
+      expect(sut.filterText, equals('text'));
+    });
+  });
 }

@@ -30,6 +30,9 @@ abstract class _HomeControllerBase with Store {
   @observable
   bool isLoadingMovie = true;
 
+  @observable
+  String filterText = '';
+
   @computed
   bool get showMovies => !isLoadingGenre && !isLoadingMovie;
 
@@ -57,6 +60,9 @@ abstract class _HomeControllerBase with Store {
   @action
   void setSelectedGenre(GenreEntity genre) => selectedGenre = genre;
 
+  @action
+  void setFilterText(String text) => filterText = text;
+
   Future<void> fetchGenreList() async {
     setIsLoadingGenre(true);
     setGenreList(await fetchGenreListUsecase());
@@ -77,5 +83,9 @@ abstract class _HomeControllerBase with Store {
     return genreId
         .map((e) => genreList.firstWhere((element) => element.id == e).name)
         .toList();
+  }
+
+  void onChangeFilter(String text) {
+    setFilterText(text);
   }
 }
