@@ -54,7 +54,7 @@ class MovieCardWidget extends StatelessWidget {
                 children: [
                   Text(title, style: AppStyles.cardTitleTextStyle),
                   SpaceY(12),
-                  Text(genres[2], style: AppStyles.cardSubTitleTextStyle),
+                  Text(genres[0], style: AppStyles.cardSubTitleTextStyle),
                 ],
               ),
             ),

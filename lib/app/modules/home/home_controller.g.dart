@@ -7,7 +7,7 @@ part of 'home_controller.dart';
 // **************************************************************************
 
 final $HomeController = BindInject(
-  (i) => HomeController(),
+  (i) => HomeController(fetchGenreListUsecase: i<IFetchGenreListUsecase>()),
   singleton: true,
   lazy: true,
 );
@@ -22,28 +22,43 @@ mixin _$HomeController on _HomeControllerBase, Store {
   final _$genreListAtom = Atom(name: '_HomeControllerBase.genreList');
 
   @override
-  ObservableList<GenreUiModel> get genreList {
+  ObservableList<GenreEntity> get genreList {
     _$genreListAtom.reportRead();
     return super.genreList;
   }
 
   @override
-  set genreList(ObservableList<GenreUiModel> value) {
+  set genreList(ObservableList<GenreEntity> value) {
     _$genreListAtom.reportWrite(value, super.genreList, () {
       super.genreList = value;
+    });
+  }
+
+  final _$movieListAtom = Atom(name: '_HomeControllerBase.movieList');
+
+  @override
+  ObservableList<MovieCardUiModel> get movieList {
+    _$movieListAtom.reportRead();
+    return super.movieList;
+  }
+
+  @override
+  set movieList(ObservableList<MovieCardUiModel> value) {
+    _$movieListAtom.reportWrite(value, super.movieList, () {
+      super.movieList = value;
     });
   }
 
   final _$selectedGenreAtom = Atom(name: '_HomeControllerBase.selectedGenre');
 
   @override
-  GenreUiModel get selectedGenre {
+  GenreEntity get selectedGenre {
     _$selectedGenreAtom.reportRead();
     return super.selectedGenre;
   }
 
   @override
-  set selectedGenre(GenreUiModel value) {
+  set selectedGenre(GenreEntity value) {
     _$selectedGenreAtom.reportWrite(value, super.selectedGenre, () {
       super.selectedGenre = value;
     });
@@ -64,15 +79,41 @@ mixin _$HomeController on _HomeControllerBase, Store {
     });
   }
 
+  final _$isLoadingMovieAtom = Atom(name: '_HomeControllerBase.isLoadingMovie');
+
+  @override
+  bool get isLoadingMovie {
+    _$isLoadingMovieAtom.reportRead();
+    return super.isLoadingMovie;
+  }
+
+  @override
+  set isLoadingMovie(bool value) {
+    _$isLoadingMovieAtom.reportWrite(value, super.isLoadingMovie, () {
+      super.isLoadingMovie = value;
+    });
+  }
+
   final _$_HomeControllerBaseActionController =
       ActionController(name: '_HomeControllerBase');
 
   @override
-  void setGenreList(List<GenreUiModel> genres) {
+  void setGenreList(List<GenreEntity> genres) {
     final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
         name: '_HomeControllerBase.setGenreList');
     try {
       return super.setGenreList(genres);
+    } finally {
+      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setMovieList(List<MovieCardUiModel> movies) {
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+        name: '_HomeControllerBase.setMovieList');
+    try {
+      return super.setMovieList(movies);
     } finally {
       _$_HomeControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -90,7 +131,18 @@ mixin _$HomeController on _HomeControllerBase, Store {
   }
 
   @override
-  void setSelectedGenre(GenreUiModel genre) {
+  void setIsLoadingMovie(bool loading) {
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+        name: '_HomeControllerBase.setIsLoadingMovie');
+    try {
+      return super.setIsLoadingMovie(loading);
+    } finally {
+      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setSelectedGenre(GenreEntity genre) {
     final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
         name: '_HomeControllerBase.setSelectedGenre');
     try {
@@ -104,8 +156,10 @@ mixin _$HomeController on _HomeControllerBase, Store {
   String toString() {
     return '''
 genreList: ${genreList},
+movieList: ${movieList},
 selectedGenre: ${selectedGenre},
-isLoadingGenre: ${isLoadingGenre}
+isLoadingGenre: ${isLoadingGenre},
+isLoadingMovie: ${isLoadingMovie}
     ''';
   }
 }

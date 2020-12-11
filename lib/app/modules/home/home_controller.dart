@@ -1,7 +1,9 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:meta/meta.dart';
 import 'package:mobx/mobx.dart';
 
-import 'models/genre_ui_model.dart';
+import '../../../domain/entities/entities.dart';
+import '../../../domain/usecases/usecases.dart';
 import 'models/movie_card_ui_model.dart';
 
 part 'home_controller.g.dart';
@@ -10,35 +12,37 @@ part 'home_controller.g.dart';
 class HomeController = _HomeControllerBase with _$HomeController;
 
 abstract class _HomeControllerBase with Store {
+  final IFetchGenreListUsecase fetchGenreListUsecase;
+
   @observable
-  ObservableList<GenreUiModel> genreList;
+  ObservableList<GenreEntity> genreList = <GenreEntity>[].asObservable();
 
   @observable
   ObservableList<MovieCardUiModel> movieList = [
     MovieCardUiModel(
       id: 590706,
-      genreIds: [0, 2, 4],
+      genreIds: [28, 12],
       backdropPath: '/jeAQdDX9nguP6YOX6QSWKDPkbBo.jpg',
       posterPath: '/eLT8Cu357VOwBVTitkmlDEg32Fs.jpg',
       title: 'Jiu Jitsu',
     ),
     MovieCardUiModel(
       id: 590706,
-      genreIds: [0, 2, 4],
+      genreIds: [28, 12],
       backdropPath: '/jeAQdDX9nguP6YOX6QSWKDPkbBo.jpg',
       posterPath: '/eLT8Cu357VOwBVTitkmlDEg32Fs.jpg',
       title: 'Jiu Jitsu',
     ),
     MovieCardUiModel(
       id: 590706,
-      genreIds: [0, 2, 4],
+      genreIds: [28, 12],
       backdropPath: '/jeAQdDX9nguP6YOX6QSWKDPkbBo.jpg',
       posterPath: '/eLT8Cu357VOwBVTitkmlDEg32Fs.jpg',
       title: 'Jiu Jitsu',
     ),
     MovieCardUiModel(
       id: 590706,
-      genreIds: [0, 2, 4],
+      genreIds: [28, 12],
       backdropPath: '/jeAQdDX9nguP6YOX6QSWKDPkbBo.jpg',
       posterPath: '/eLT8Cu357VOwBVTitkmlDEg32Fs.jpg',
       title: 'Jiu Jitsu',
@@ -46,7 +50,7 @@ abstract class _HomeControllerBase with Store {
   ].asObservable();
 
   @observable
-  GenreUiModel selectedGenre;
+  GenreEntity selectedGenre;
 
   @observable
   bool isLoadingGenre = true;
@@ -54,13 +58,13 @@ abstract class _HomeControllerBase with Store {
   @observable
   bool isLoadingMovie = true;
 
-  _HomeControllerBase() {
-    // fetchGenreList();
+  _HomeControllerBase({@required this.fetchGenreListUsecase}) {
+    fetchGenreList();
     // fetchMovieList();
   }
 
   @action
-  void setGenreList(List<GenreUiModel> genres) =>
+  void setGenreList(List<GenreEntity> genres) =>
       genreList = genres.asObservable();
 
   @action
@@ -74,18 +78,11 @@ abstract class _HomeControllerBase with Store {
   void setIsLoadingMovie(bool loading) => isLoadingMovie = loading;
 
   @action
-  void setSelectedGenre(GenreUiModel genre) => selectedGenre = genre;
+  void setSelectedGenre(GenreEntity genre) => selectedGenre = genre;
 
   Future<void> fetchGenreList() async {
     setIsLoadingGenre(true);
-    await Future.delayed(const Duration(seconds: 1));
-    setGenreList([
-      GenreUiModel(id: 0, name: 'Ação'),
-      GenreUiModel(id: 1, name: 'Aventura'),
-      GenreUiModel(id: 2, name: 'Fantasia'),
-      GenreUiModel(id: 3, name: 'Comédia'),
-      GenreUiModel(id: 4, name: 'Terror'),
-    ]);
+    setGenreList(await fetchGenreListUsecase());
     setIsLoadingGenre(false);
   }
 
@@ -95,7 +92,7 @@ abstract class _HomeControllerBase with Store {
     setMovieList([
       MovieCardUiModel(
         id: 590706,
-        genreIds: [0, 2, 4],
+        genreIds: [28, 12],
         backdropPath: '/jeAQdDX9nguP6YOX6QSWKDPkbBo.jpg',
         posterPath: '/eLT8Cu357VOwBVTitkmlDEg32Fs.jpg',
         title: 'Jiu Jitsu',
@@ -104,9 +101,11 @@ abstract class _HomeControllerBase with Store {
     setIsLoadingMovie(false);
   }
 
-  bool isGenreSelected(GenreUiModel genre) => selectedGenre == genre;
+  bool isGenreSelected(GenreEntity genre) => selectedGenre == genre;
 
-  List<String> genresToName(List<int> genresId) => genresId
-      .map((e) => genreList.firstWhere((element) => element.id == e).name)
-      .toList();
+  List<String> genresToName(List<int> genresId) {
+    return genresId
+        .map((e) => genreList.firstWhere((element) => element.id == e).name)
+        .toList();
+  }
 }
