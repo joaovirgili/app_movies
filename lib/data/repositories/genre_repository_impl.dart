@@ -9,7 +9,7 @@ import '../http/http.dart';
 import '../models/models.dart';
 
 class GenreRepository implements IGenreRepository {
-  final HttpClient httpClient;
+  final IHttpClient httpClient;
 
   GenreRepository({@required this.httpClient});
 

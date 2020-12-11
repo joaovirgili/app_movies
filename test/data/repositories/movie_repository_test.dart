@@ -13,10 +13,10 @@ import 'package:movies/domain/repositories/repositories.dart';
 
 import 'package:movies/shared/api/api.dart';
 
-class HttpClientMock extends Mock implements HttpClient {}
+class HttpClientMock extends Mock implements IHttpClient {}
 
 void main() {
-  HttpClient httpClient;
+  IHttpClient httpClient;
   MovieRepository sut;
 
   setUp(() {

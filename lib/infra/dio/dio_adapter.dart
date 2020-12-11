@@ -3,7 +3,7 @@ import 'package:meta/meta.dart';
 
 import '../../data/http/http.dart';
 
-class DioAdapter implements HttpClient {
+class DioAdapter implements IHttpClient {
   final Dio dio;
 
   DioAdapter(this.dio);

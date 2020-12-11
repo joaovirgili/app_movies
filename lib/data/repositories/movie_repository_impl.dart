@@ -9,7 +9,7 @@ import '../http/http.dart';
 import '../models/models.dart';
 
 class MovieRepository implements IMovieRepository {
-  final HttpClient httpClient;
+  final IHttpClient httpClient;
 
   MovieRepository({@required this.httpClient});
 

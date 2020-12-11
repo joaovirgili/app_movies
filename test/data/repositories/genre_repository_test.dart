@@ -8,7 +8,7 @@ import 'package:movies/domain/entities/entities.dart';
 import 'package:movies/domain/helpers/helpers.dart';
 import 'package:movies/shared/api/api.dart';
 
-class HttpClientMock extends Mock implements HttpClient {}
+class HttpClientMock extends Mock implements IHttpClient {}
 
 void main() {
   HttpClientMock httpClient;
