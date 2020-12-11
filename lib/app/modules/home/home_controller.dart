@@ -18,36 +18,8 @@ abstract class _HomeControllerBase with Store {
   ObservableList<GenreEntity> genreList = <GenreEntity>[].asObservable();
 
   @observable
-  ObservableList<MovieCardUiModel> movieList = [
-    MovieCardUiModel(
-      id: 590706,
-      genreIds: [28, 12],
-      backdropPath: '/jeAQdDX9nguP6YOX6QSWKDPkbBo.jpg',
-      posterPath: '/eLT8Cu357VOwBVTitkmlDEg32Fs.jpg',
-      title: 'Jiu Jitsu',
-    ),
-    MovieCardUiModel(
-      id: 590706,
-      genreIds: [28, 12],
-      backdropPath: '/jeAQdDX9nguP6YOX6QSWKDPkbBo.jpg',
-      posterPath: '/eLT8Cu357VOwBVTitkmlDEg32Fs.jpg',
-      title: 'Jiu Jitsu',
-    ),
-    MovieCardUiModel(
-      id: 590706,
-      genreIds: [28, 12],
-      backdropPath: '/jeAQdDX9nguP6YOX6QSWKDPkbBo.jpg',
-      posterPath: '/eLT8Cu357VOwBVTitkmlDEg32Fs.jpg',
-      title: 'Jiu Jitsu',
-    ),
-    MovieCardUiModel(
-      id: 590706,
-      genreIds: [28, 12],
-      backdropPath: '/jeAQdDX9nguP6YOX6QSWKDPkbBo.jpg',
-      posterPath: '/eLT8Cu357VOwBVTitkmlDEg32Fs.jpg',
-      title: 'Jiu Jitsu',
-    ),
-  ].asObservable();
+  ObservableList<MovieCardUiModel> movieList =
+      <MovieCardUiModel>[].asObservable();
 
   @observable
   GenreEntity selectedGenre;
@@ -57,6 +29,9 @@ abstract class _HomeControllerBase with Store {
 
   @observable
   bool isLoadingMovie = true;
+
+  @computed
+  bool get showMovies => !isLoadingGenre && !isLoadingMovie;
 
   _HomeControllerBase({@required this.fetchGenreListUsecase}) {
     fetchGenreList();
@@ -89,15 +64,6 @@ abstract class _HomeControllerBase with Store {
   Future<void> fetchMovieList() async {
     setIsLoadingMovie(true);
     await Future.delayed(const Duration(seconds: 1));
-    setMovieList([
-      MovieCardUiModel(
-        id: 590706,
-        genreIds: [28, 12],
-        backdropPath: '/jeAQdDX9nguP6YOX6QSWKDPkbBo.jpg',
-        posterPath: '/eLT8Cu357VOwBVTitkmlDEg32Fs.jpg',
-        title: 'Jiu Jitsu',
-      ),
-    ]);
     setIsLoadingMovie(false);
   }
 

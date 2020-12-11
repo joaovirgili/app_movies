@@ -70,7 +70,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
     );
   }
 
-  SliverList _buildMovieListView() {
+  Widget _buildMovieListView() {
     return SliverList(
       delegate: SliverChildBuilderDelegate(
         (context, index) {
@@ -87,10 +87,17 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
     );
   }
 
-  SliverToBoxAdapter _buildLoadingMovies() {
-    return SliverToBoxAdapter(
-      child: Center(
-        child: CircularProgressIndicator(),
+  Widget _buildLoadingMovies() {
+    return SliverList(
+      delegate: SliverChildBuilderDelegate(
+        (context, index) {
+          return Shimmer.fromColors(
+            baseColor: Colors.grey[300],
+            highlightColor: Colors.grey[100],
+            child: MovieCardShimmerLoadingWidget(),
+          );
+        },
+        childCount: 2,
       ),
     );
   }

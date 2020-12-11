@@ -64,3 +64,20 @@ class MovieCardWidget extends StatelessWidget {
     );
   }
 }
+
+class MovieCardShimmerLoadingWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(20.w),
+      child: Container(
+        height: 550,
+        width: double.maxFinite,
+        decoration: BoxDecoration(
+          color: Colors.black,
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+        ),
+      ),
+    );
+  }
+}
