@@ -90,7 +90,6 @@ abstract class _HomeControllerBase with Store implements Disposable {
       genreId: selectedGenre.id,
     );
     setMovieList(movieListPage.movies);
-
     setIsLoadingMovie(false);
   }
 
@@ -115,6 +114,11 @@ abstract class _HomeControllerBase with Store implements Disposable {
 
   void onChangeFilter(String text) {
     setFilterText(text);
+  }
+
+  void onChangeGenre(GenreEntity genre) {
+    setSelectedGenre(genre);
+    fetchMovieList();
   }
 
   bool filterByTitle(MoviePreviewEntity movie) =>

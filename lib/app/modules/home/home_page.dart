@@ -145,7 +145,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
         return Observer(builder: (_) {
           return GenreBadgeWidget(
             label: '${currentGenre.name}',
-            onTap: () => controller.setSelectedGenre(currentGenre),
+            onTap: () => controller.onChangeGenre(currentGenre),
             isSelected: controller.isGenreSelected(currentGenre),
           );
         });
