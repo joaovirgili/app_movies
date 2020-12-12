@@ -8,10 +8,12 @@ import '../../../domain/usecases/usecases.dart';
 import '../../../infra/dio/dio.dart';
 import 'home_controller.dart';
 import 'home_page.dart';
+import 'pages/movie_details/movie_details_controller.dart';
 
 class HomeModule extends ChildModule {
   @override
   List<Bind> get binds => [
+        $MovieDetailsController,
         $HomeController,
         BindInject<IFetchGenreListUsecase>(
           (i) => FetchGenreListUsecase(genreRepository: i<IGenreRepository>()),
