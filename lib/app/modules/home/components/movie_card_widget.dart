@@ -9,11 +9,13 @@ class MovieCardWidget extends StatelessWidget {
     @required this.title,
     @required this.genres,
     @required this.image,
+    this.onTap,
   });
 
   final List<String> genres;
   final String title;
   final String image;
+  final Function() onTap;
 
   String _buildGenreLabel() {
     String genre = genres[0];
@@ -38,48 +40,54 @@ class MovieCardWidget extends StatelessWidget {
           ),
           borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
-        child: Stack(
-          children: [
-            Positioned(
-              left: 0,
-              bottom: 0,
-              right: 0,
-              child: Container(
-                height: 200,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [Colors.transparent, Colors.black],
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            onTap: onTap,
+            child: Stack(
+              children: [
+                Positioned(
+                  left: 0,
+                  bottom: 0,
+                  right: 0,
+                  child: Container(
+                    height: 200,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [Colors.transparent, Colors.black],
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ),
-            Positioned(
-              bottom: 32,
-              left: 24,
-              right: 24,
-              child: SizedBox(
-                width: double.maxFinite,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title.toUpperCase(),
-                      style: AppStyles.cardTitleTextStyle,
-                      softWrap: true,
+                Positioned(
+                  bottom: 32,
+                  left: 24,
+                  right: 24,
+                  child: SizedBox(
+                    width: double.maxFinite,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          title.toUpperCase(),
+                          style: AppStyles.cardTitleTextStyle,
+                          softWrap: true,
+                        ),
+                        SpaceY(12),
+                        Text(
+                          _buildGenreLabel(),
+                          style: AppStyles.cardSubTitleTextStyle,
+                        ),
+                      ],
                     ),
-                    SpaceY(12),
-                    Text(
-                      _buildGenreLabel(),
-                      style: AppStyles.cardSubTitleTextStyle,
-                    ),
-                  ],
+                  ),
                 ),
-              ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

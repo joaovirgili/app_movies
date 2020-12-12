@@ -6,9 +6,10 @@ import '../../../data/repositories/repositories.dart';
 import '../../../domain/repositories/repositories.dart';
 import '../../../domain/usecases/usecases.dart';
 import '../../../infra/dio/dio.dart';
+import '../../shared/routes.dart';
 import 'home_controller.dart';
 import 'home_page.dart';
-import 'pages/movie_details/movie_details_controller.dart';
+import 'pages/movie_details/movie_details.dart';
 
 class HomeModule extends ChildModule {
   @override
@@ -33,6 +34,7 @@ class HomeModule extends ChildModule {
   @override
   List<ModularRouter> get routers => [
         ModularRouter(Modular.initialRoute, child: (_, args) => HomePage()),
+        ModularRouter(AppRoutes.movie, child: (_, args) => MovieDetailsPage()),
       ];
 
   static Inject get to => Inject<HomeModule>.of();

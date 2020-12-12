@@ -8,6 +8,7 @@ import '../../../domain/entities/entities.dart';
 import '../../shared/assets.dart';
 import '../../shared/components/space_x_widget.dart';
 import '../../shared/components/space_y_widget.dart';
+import '../../shared/routes.dart';
 import 'components/genre_badge_widget.dart';
 import 'components/movie_card_widget.dart';
 import 'home_controller.dart';
@@ -139,6 +140,8 @@ class _HomePageState extends ModularState<HomePage, HomeController>
             title: currentMovie.title,
             genres: controller.genresToName(currentMovie.genreIds),
             image: currentMovie.posterPath,
+            onTap: () =>
+                Modular.to.pushNamed(AppRoutes.movie, arguments: currentMovie),
           );
         },
         childCount: movies.length,
