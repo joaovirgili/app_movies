@@ -52,4 +52,10 @@ class AppStyles {
     fontWeight: FontWeight.w600,
     color: AppColors.gray03,
   );
+
+  static final backButton = GoogleFonts.montserrat(
+    fontSize: 14.sp,
+    fontWeight: FontWeight.w300,
+    color: AppColors.gray05,
+  );
 }
