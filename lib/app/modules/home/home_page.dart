@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../domain/entities/entities.dart';
-import '../../../shared/api/api.dart';
 import '../../shared/assets.dart';
 import '../../shared/components/space_x_widget.dart';
 import '../../shared/components/space_y_widget.dart';
@@ -139,7 +138,7 @@ class _HomePageState extends ModularState<HomePage, HomeController>
           return MovieCardWidget(
             title: currentMovie.title,
             genres: controller.genresToName(currentMovie.genreIds),
-            image: '${Api.imageBaseUrl}${currentMovie.posterPath}',
+            image: currentMovie.posterPath,
           );
         },
         childCount: movies.length,

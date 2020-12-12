@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import '../../domain/entities/entities.dart';
+import '../../shared/api/api.dart';
 
 class MovieListPageModel {
   MovieListPageModel({
@@ -92,7 +93,7 @@ class MoviePreviewModel {
   String toRawJson() => json.encode(toJson());
 
   factory MoviePreviewModel.fromJson(Map json) => MoviePreviewModel(
-        posterPath: json['poster_path'] as String,
+        posterPath: Api.imageBaseUrl + json['poster_path'],
         genreIds: json['genre_ids'] == null
             ? null
             : (json['genre_ids'] as List).map((e) => e as int).toList(),
