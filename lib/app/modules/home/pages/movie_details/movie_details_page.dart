@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+import '../../../../shared/colors.dart';
 import '../../../../shared/components/components.dart';
 import 'movie_details_controller.dart';
 
@@ -20,6 +21,7 @@ class _MovieDetailsPageState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.gray00,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(

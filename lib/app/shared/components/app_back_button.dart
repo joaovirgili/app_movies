@@ -12,8 +12,9 @@ class AppBackButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: AppColors.white,
+      shadowColor: AppColors.white01,
       elevation: 1,
+      color: AppColors.white,
       borderRadius: BorderRadius.circular(100),
       child: InkWell(
         borderRadius: BorderRadius.circular(100),
