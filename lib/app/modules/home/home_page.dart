@@ -44,52 +44,55 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: CustomScrollView(
-          controller: scrollController,
-          slivers: [
-            SliverAppBar(
-              titleSpacing: 20.w,
-              title: Text('Filmes'),
-              centerTitle: false,
-            ),
-            SliverToBoxAdapter(child: const SpaceY(10)),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
-                child: Column(
-                  children: [
-                    TextField(
-                      onChanged: controller.onChangeFilter,
-                      decoration: InputDecoration(
-                        hintText: 'Pesquise filmes',
-                        prefixIcon: Image.asset(AppAssets.search),
-                      ),
-                    ),
-                    SpaceY(15),
-                    Observer(builder: (_) {
-                      return SizedBox(
-                        height: 25.h,
-                        child: AnimatedSwitcher(
-                          duration: const Duration(milliseconds: 250),
-                          child: controller.isLoadingGenre
-                              ? _buildGenreLoading()
-                              : _buildGenreListView(),
+        child: GestureDetector(
+          onTap: () => FocusScope.of(context).unfocus(),
+          child: CustomScrollView(
+            controller: scrollController,
+            slivers: [
+              SliverAppBar(
+                titleSpacing: 20.w,
+                title: Text('Filmes'),
+                centerTitle: false,
+              ),
+              SliverToBoxAdapter(child: const SpaceY(10)),
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  child: Column(
+                    children: [
+                      TextField(
+                        onChanged: controller.onChangeFilter,
+                        decoration: InputDecoration(
+                          hintText: 'Pesquise filmes',
+                          prefixIcon: Image.asset(AppAssets.search),
                         ),
-                      );
-                    }),
-                  ],
+                      ),
+                      SpaceY(15),
+                      Observer(builder: (_) {
+                        return SizedBox(
+                          height: 25.h,
+                          child: AnimatedSwitcher(
+                            duration: const Duration(milliseconds: 250),
+                            child: controller.isLoadingGenre
+                                ? _buildGenreLoading()
+                                : _buildGenreListView(),
+                          ),
+                        );
+                      }),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            SliverToBoxAdapter(child: const SpaceY(20)),
-            Observer(builder: (_) {
-              return controller.isLoadingGenre
-                  ? _buildLoadingMovies()
-                  : _buildMovieListView(controller.movieList
-                      .where(controller.filterByTitle)
-                      .toList());
-            }),
-          ],
+              SliverToBoxAdapter(child: const SpaceY(20)),
+              Observer(builder: (_) {
+                return controller.isLoadingGenre
+                    ? _buildLoadingMovies()
+                    : _buildMovieListView(controller.movieList
+                        .where(controller.filterByTitle)
+                        .toList());
+              }),
+            ],
+          ),
         ),
       ),
     );
