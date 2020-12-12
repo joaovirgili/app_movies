@@ -109,7 +109,8 @@ abstract class _HomeControllerBase with Store implements Disposable {
   List<String> genresToName(List<int> genreId) {
     return genreId
         .map((e) => genreList.firstWhere((element) => element.id == e).name)
-        .toList();
+        .toList()
+          ..sort((a, b) => a.compareTo(b));
   }
 
   void onChangeFilter(String text) {

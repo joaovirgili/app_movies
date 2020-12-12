@@ -15,6 +15,16 @@ class MovieCardWidget extends StatelessWidget {
   final String title;
   final String image;
 
+  String _buildGenreLabel() {
+    String genre = genres[0];
+    genres
+      ..removeAt(0)
+      ..forEach((element) {
+        genre += ' - $element';
+      });
+    return genre;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -52,10 +62,15 @@ class MovieCardWidget extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title.toUpperCase(),
-                      style: AppStyles.cardTitleTextStyle),
+                  Text(
+                    title.toUpperCase(),
+                    style: AppStyles.cardTitleTextStyle,
+                  ),
                   SpaceY(12),
-                  Text(genres[0], style: AppStyles.cardSubTitleTextStyle),
+                  Text(
+                    _buildGenreLabel(),
+                    style: AppStyles.cardSubTitleTextStyle,
+                  ),
                 ],
               ),
             ),
