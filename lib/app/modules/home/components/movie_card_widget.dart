@@ -59,19 +59,24 @@ class MovieCardWidget extends StatelessWidget {
             Positioned(
               bottom: 32,
               left: 24,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title.toUpperCase(),
-                    style: AppStyles.cardTitleTextStyle,
-                  ),
-                  SpaceY(12),
-                  Text(
-                    _buildGenreLabel(),
-                    style: AppStyles.cardSubTitleTextStyle,
-                  ),
-                ],
+              right: 24,
+              child: SizedBox(
+                width: double.maxFinite,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title.toUpperCase(),
+                      style: AppStyles.cardTitleTextStyle,
+                      softWrap: true,
+                    ),
+                    SpaceY(12),
+                    Text(
+                      _buildGenreLabel(),
+                      style: AppStyles.cardSubTitleTextStyle,
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
