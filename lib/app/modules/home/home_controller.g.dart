@@ -104,6 +104,21 @@ mixin _$HomeController on _HomeControllerBase, Store {
     });
   }
 
+  final _$filterTextAtom = Atom(name: '_HomeControllerBase.filterText');
+
+  @override
+  String get filterText {
+    _$filterTextAtom.reportRead();
+    return super.filterText;
+  }
+
+  @override
+  set filterText(String value) {
+    _$filterTextAtom.reportWrite(value, super.filterText, () {
+      super.filterText = value;
+    });
+  }
+
   final _$_HomeControllerBaseActionController =
       ActionController(name: '_HomeControllerBase');
 
@@ -163,6 +178,17 @@ mixin _$HomeController on _HomeControllerBase, Store {
   }
 
   @override
+  void setFilterText(String text) {
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+        name: '_HomeControllerBase.setFilterText');
+    try {
+      return super.setFilterText(text);
+    } finally {
+      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 genreList: ${genreList},
@@ -170,6 +196,7 @@ movieList: ${movieList},
 selectedGenre: ${selectedGenre},
 isLoadingGenre: ${isLoadingGenre},
 isLoadingMovie: ${isLoadingMovie},
+filterText: ${filterText},
 showMovies: ${showMovies}
     ''';
   }

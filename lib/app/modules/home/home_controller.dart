@@ -42,13 +42,6 @@ abstract class _HomeControllerBase with Store implements Disposable {
     @required this.fetchMovieListByGenreUsecase,
   }) {
     fetchGenreList().then((_) => fetchMovieList());
-    filterReaction =
-        reaction<String>((_) => filterText, (msg) => filterMovies(msg));
-  }
-
-  @action
-  void filterMovies(String msg) {
-    movieList.where((movie) => filterByTitle(movie, msg));
   }
 
   @action
@@ -97,8 +90,8 @@ abstract class _HomeControllerBase with Store implements Disposable {
     setFilterText(text);
   }
 
-  bool filterByTitle(MoviePreviewEntity movie, String msg) =>
-      movie.title.toLowerCase().contains(msg.toLowerCase());
+  bool filterByTitle(MoviePreviewEntity movie) =>
+      movie.title.toLowerCase().contains(filterText.toLowerCase());
 
   @override
   void dispose() {

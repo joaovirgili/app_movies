@@ -114,10 +114,14 @@ void main() {
     test('filterTitle should filter movie title by text', () {
       final movie = MoviePreviewEntity(title: 'abc');
 
-      final filter1 = sut.filterByTitle(movie, 'a');
-      final filter2 = sut.filterByTitle(movie, 'A');
-      final filter3 = sut.filterByTitle(movie, 'd');
-      final filter4 = sut.filterByTitle(movie, 'D');
+      sut.onChangeFilter('a');
+      final filter1 = sut.filterByTitle(movie);
+      sut.onChangeFilter('A');
+      final filter2 = sut.filterByTitle(movie);
+      sut.onChangeFilter('d');
+      final filter3 = sut.filterByTitle(movie);
+      sut.onChangeFilter('D');
+      final filter4 = sut.filterByTitle(movie);
 
       expect(filter1, isTrue);
       expect(filter2, isTrue);

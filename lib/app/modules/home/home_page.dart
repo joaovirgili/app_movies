@@ -4,6 +4,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../../domain/entities/entities.dart';
 import '../../../shared/api/api.dart';
 import '../../shared/assets.dart';
 import '../../shared/components/space_x_widget.dart';
@@ -38,6 +39,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
               child: Column(
                 children: [
                   TextField(
+                    onChanged: controller.onChangeFilter,
                     decoration: InputDecoration(
                       hintText: 'Pesquise filmes',
                       prefixIcon: Image.asset(AppAssets.search),
@@ -63,18 +65,20 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
           Observer(builder: (_) {
             return controller.isLoadingGenre
                 ? _buildLoadingMovies()
-                : _buildMovieListView();
+                : _buildMovieListView(controller.movieList
+                    .where(controller.filterByTitle)
+                    .toList());
           }),
         ],
       ),
     );
   }
 
-  Widget _buildMovieListView() {
+  Widget _buildMovieListView(List<MoviePreviewEntity> movies) {
     return SliverList(
       delegate: SliverChildBuilderDelegate(
         (context, index) {
-          final currentMovie = controller.movieList[index];
+          final currentMovie = movies[index];
 
           return MovieCardWidget(
             title: currentMovie.title,
@@ -82,7 +86,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
             image: '${Api.imageBaseUrl}${currentMovie.posterPath}',
           );
         },
-        childCount: controller.movieList.length,
+        childCount: movies.length,
       ),
     );
   }
