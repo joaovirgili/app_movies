@@ -14,6 +14,7 @@ abstract class _HomeControllerBase with Store implements Disposable {
   final IFetchGenreListUsecase fetchGenreListUsecase;
   final IFetchMovieListByGenre fetchMovieListByGenreUsecase;
   ReactionDisposer filterReaction;
+  MovieListPageEntity movieListPage;
 
   @observable
   ObservableList<GenreEntity> genreList = <GenreEntity>[].asObservable();
@@ -32,10 +33,15 @@ abstract class _HomeControllerBase with Store implements Disposable {
   bool isLoadingMovie = true;
 
   @observable
+  bool isLoadingPage = false;
+
+  @observable
   String filterText = '';
 
   @computed
   bool get showMovies => !isLoadingGenre && !isLoadingMovie;
+
+  bool get hasNextPage => movieListPage.totalPages > movieListPage.page;
 
   _HomeControllerBase({
     @required this.fetchGenreListUsecase,
@@ -53,10 +59,17 @@ abstract class _HomeControllerBase with Store implements Disposable {
       movieList = movies.asObservable();
 
   @action
+  void addMoviesToList(List<MoviePreviewEntity> movies) =>
+      movieList.addAll(movies);
+
+  @action
   void setIsLoadingGenre(bool loading) => isLoadingGenre = loading;
 
   @action
   void setIsLoadingMovie(bool loading) => isLoadingMovie = loading;
+
+  @action
+  void setIsLoadingPage(bool loading) => isLoadingPage = loading;
 
   @action
   void setSelectedGenre(GenreEntity genre) => selectedGenre = genre;
@@ -73,9 +86,23 @@ abstract class _HomeControllerBase with Store implements Disposable {
 
   Future<void> fetchMovieList() async {
     setIsLoadingMovie(true);
-    final res = await fetchMovieListByGenreUsecase(genreId: selectedGenre.id);
-    setMovieList(res.movies);
+    movieListPage = await fetchMovieListByGenreUsecase(
+      genreId: selectedGenre.id,
+    );
+    setMovieList(movieListPage.movies);
+
     setIsLoadingMovie(false);
+  }
+
+  Future<void> fetchMovieListNextPage() async {
+    setIsLoadingPage(true);
+    movieListPage.page++;
+    movieListPage = await fetchMovieListByGenreUsecase(
+      genreId: selectedGenre.id,
+      page: movieListPage.page,
+    );
+    addMoviesToList(movieListPage.movies);
+    setIsLoadingPage(false);
   }
 
   bool isGenreSelected(GenreEntity genre) => selectedGenre == genre;

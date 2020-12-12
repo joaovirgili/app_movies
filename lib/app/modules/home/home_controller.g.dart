@@ -104,6 +104,21 @@ mixin _$HomeController on _HomeControllerBase, Store {
     });
   }
 
+  final _$isLoadingPageAtom = Atom(name: '_HomeControllerBase.isLoadingPage');
+
+  @override
+  bool get isLoadingPage {
+    _$isLoadingPageAtom.reportRead();
+    return super.isLoadingPage;
+  }
+
+  @override
+  set isLoadingPage(bool value) {
+    _$isLoadingPageAtom.reportWrite(value, super.isLoadingPage, () {
+      super.isLoadingPage = value;
+    });
+  }
+
   final _$filterTextAtom = Atom(name: '_HomeControllerBase.filterText');
 
   @override
@@ -145,6 +160,17 @@ mixin _$HomeController on _HomeControllerBase, Store {
   }
 
   @override
+  void addMoviesToList(List<MoviePreviewEntity> movies) {
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+        name: '_HomeControllerBase.addMoviesToList');
+    try {
+      return super.addMoviesToList(movies);
+    } finally {
+      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void setIsLoadingGenre(bool loading) {
     final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
         name: '_HomeControllerBase.setIsLoadingGenre');
@@ -161,6 +187,17 @@ mixin _$HomeController on _HomeControllerBase, Store {
         name: '_HomeControllerBase.setIsLoadingMovie');
     try {
       return super.setIsLoadingMovie(loading);
+    } finally {
+      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setIsLoadingPage(bool loading) {
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+        name: '_HomeControllerBase.setIsLoadingPage');
+    try {
+      return super.setIsLoadingPage(loading);
     } finally {
       _$_HomeControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -196,6 +233,7 @@ movieList: ${movieList},
 selectedGenre: ${selectedGenre},
 isLoadingGenre: ${isLoadingGenre},
 isLoadingMovie: ${isLoadingMovie},
+isLoadingPage: ${isLoadingPage},
 filterText: ${filterText},
 showMovies: ${showMovies}
     ''';

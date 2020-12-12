@@ -6,7 +6,7 @@ class MovieListPageEntity {
     this.totalResults,
   });
 
-  final int page;
+  int page;
   final List<MoviePreviewEntity> movies;
   final int totalPages;
   final int totalResults;

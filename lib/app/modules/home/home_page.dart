@@ -22,10 +22,29 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends ModularState<HomePage, HomeController> {
+  final scrollController = ScrollController();
+
+  bool _listReachedPercentage(double percent) =>
+      scrollController.offset >=
+      scrollController.position.maxScrollExtent * percent;
+
+  @override
+  void initState() {
+    super.initState();
+    scrollController.addListener(() {
+      if (_listReachedPercentage(0.85)) {
+        if (!controller.isLoadingPage && controller.hasNextPage) {
+          controller.fetchMovieListNextPage();
+        }
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomScrollView(
+        controller: scrollController,
         slivers: [
           SliverAppBar(
             titleSpacing: 20.w,
