@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+
+import '../../../../shared/components/components.dart';
 import 'movie_details_controller.dart';
 
 class MovieDetailsPage extends StatefulWidget {
@@ -18,11 +20,14 @@ class _MovieDetailsPageState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Column(
-        children: <Widget>[],
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            title: AppBackButton(),
+            centerTitle: false,
+            automaticallyImplyLeading: false,
+          ),
+        ],
       ),
     );
   }
