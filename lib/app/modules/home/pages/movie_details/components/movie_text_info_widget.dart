@@ -15,19 +15,22 @@ class MovieTextInfoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          title,
-          style: AppStyles.textFieldHintStyle,
-        ),
-        SpaceY(8),
-        Text(
-          content,
-          style: AppStyles.movieInfoTextContent,
-        ),
-      ],
+    return Container(
+      width: double.maxFinite,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: AppStyles.textFieldHintStyle,
+          ),
+          SpaceY(8),
+          Text(
+            content,
+            style: AppStyles.movieInfoTextContent,
+          ),
+        ],
+      ),
     );
   }
 }
