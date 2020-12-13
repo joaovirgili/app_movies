@@ -67,4 +67,16 @@ class AppStyles {
 
   static final movieOriginalTitle =
       originalTitle.copyWith(fontWeight: FontWeight.w500);
+
+  static final movieInfoLabel = GoogleFonts.montserrat(
+    fontSize: 12.sp,
+    fontWeight: FontWeight.w500,
+    color: AppColors.gray03,
+  );
+
+  static final movieInfoValue = GoogleFonts.montserrat(
+    fontSize: 14.sp,
+    fontWeight: FontWeight.w500,
+    color: AppColors.gray06,
+  );
 }

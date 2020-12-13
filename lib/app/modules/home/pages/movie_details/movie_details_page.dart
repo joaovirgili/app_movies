@@ -41,6 +41,20 @@ class _MovieDetailsPageState
               originalTitle: 'Captain Marvel',
             ),
             SpaceY(32),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                MovieInfoWidget(
+                  label: 'Ano',
+                  value: '2019',
+                ),
+                SpaceX(12),
+                MovieInfoWidget(
+                  label: 'Duração',
+                  value: '1h 20min',
+                ),
+              ],
+            )
           ],
         ),
       ),
