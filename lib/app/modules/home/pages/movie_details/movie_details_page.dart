@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mobx/mobx.dart';
 
 import '../../../../../domain/entities/entities.dart';
-import '../../../../shared/extensions/int_to_hour_minute.dart';
+import '../../../../shared/extensions/extensions.dart';
 import '../../../../shared/components/components.dart';
 import '../../../../shared/components/shimmer_effetc_widget.dart';
 import 'components/components.dart';
@@ -105,11 +104,13 @@ class _MovieDetailsPageState
             SpaceY(50),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w),
-              child: MovieTextInfoWidget(
-                title: 'Descrição',
-                content:
-                    'Aventura sobre Carol Danvers, uma agente da CIA que tem contato com uma raça alienígena e ganha poderes sobre-humanos. Entre os seus poderes estão uma força fora do comum e a habilidade de voar.',
-              ),
+              child: Observer(builder: (_) {
+                return MovieTextInfoWidget(
+                  isLoading: controller.isLoading,
+                  title: 'Descrição',
+                  content: controller.movieDetails?.overview,
+                );
+              }),
             ),
             SpaceY(40),
             Padding(
@@ -132,19 +133,25 @@ class _MovieDetailsPageState
             SpaceY(40),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w),
-              child: MovieTextInfoWidget(
-                title: 'Diretor',
-                content: 'Ryan Fleck, Anna Boden',
-              ),
+              child: Observer(builder: (_) {
+                return MovieTextInfoWidget(
+                  isLoading: controller.isLoading,
+                  title: 'Diretor',
+                  content: '',
+                );
+              }),
             ),
             SpaceY(32),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w),
-              child: MovieTextInfoWidget(
-                title: 'Elenco',
-                content:
-                    'Brie Larson, Samuel L. Jackson, Ben Mendelsohn, Djimon Hounsou, Lee Pace',
-              ),
+              child: Observer(builder: (_) {
+                return MovieTextInfoWidget(
+                  isLoading: controller.isLoading,
+                  title: 'Elenco',
+                  content:
+                      'Brie Larson, Samuel L. Jackson, Ben Mendelsohn, Djimon Hounsou, Lee Pace',
+                );
+              }),
             ),
             SpaceY(70),
           ],
