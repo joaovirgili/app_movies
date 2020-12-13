@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mobx/mobx.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../domain/entities/entities.dart';
 import '../../shared/assets.dart';
+import '../../shared/components/flushbar_erro_widget.dart';
 import '../../shared/components/space_x_widget.dart';
 import '../../shared/components/space_y_widget.dart';
 import '../../shared/routes.dart';
@@ -51,6 +53,12 @@ class _HomePageState extends ModularState<HomePage, HomeController>
         if (!controller.isLoadingPage && controller.hasNextPage) {
           controller.fetchMovieListNextPage();
         }
+      }
+    });
+
+    autorun((_) {
+      if (controller.hasError) {
+        flushBarError.show(context);
       }
     });
   }
