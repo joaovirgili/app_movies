@@ -22,6 +22,9 @@ class HomeModule extends ChildModule {
         BindInject<IFetchMovieListByGenre>(
           (i) => FetchMovieListByGenre(movieRepository: i<IMovieRepository>()),
         ),
+        BindInject<IFetchMovieDetails>(
+          (i) => FetchMovieDetails(movieRepository: i<IMovieRepository>()),
+        ),
         BindInject<IGenreRepository>(
           (i) => GenreRepository(httpClient: i<IHttpClient>()),
         ),

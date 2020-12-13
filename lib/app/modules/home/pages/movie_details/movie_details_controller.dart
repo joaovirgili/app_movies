@@ -1,5 +1,7 @@
-import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:mobx/mobx.dart';
+
+import '../../../../../domain/usecases/usecases.dart';
 
 part 'movie_details_controller.g.dart';
 
@@ -8,11 +10,7 @@ class MovieDetailsController = _MovieDetailsControllerBase
     with _$MovieDetailsController;
 
 abstract class _MovieDetailsControllerBase with Store {
-  @observable
-  int value = 0;
+  final IFetchMovieDetails fetchMovieDetails;
 
-  @action
-  void increment() {
-    value++;
-  }
+  _MovieDetailsControllerBase(this.fetchMovieDetails);
 }
