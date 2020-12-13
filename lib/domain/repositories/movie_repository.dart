@@ -9,11 +9,14 @@ abstract class IMovieRepository {
   Future<MovieListPageEntity> fetchMovieList(FetchMovieListParams param);
 }
 
-class FetchMovieDetailsParams {
+class FetchMovieDetailsParams extends Equatable {
   final int id;
   final String language;
 
   FetchMovieDetailsParams({@required this.id, this.language});
+
+  @override
+  List<Object> get props => [id, language];
 }
 
 class FetchMovieListParams extends Equatable {
