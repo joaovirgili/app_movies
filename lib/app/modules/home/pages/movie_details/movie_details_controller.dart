@@ -38,4 +38,20 @@ abstract class _MovieDetailsControllerBase with Store {
     }
     setIsLoading(false);
   }
+
+  List<String> getDirectors() {
+    if (movieDetails == null) {
+      return <String>[];
+    }
+    movieDetails.directors.sort(byPopularity);
+    final vip = movieDetails.directors.length > 5
+        ? movieDetails.directors.getRange(0, 4)
+        : movieDetails.directors;
+
+    return vip.map((e) => e.name).toList();
+  }
+
+  int byPopularity(MemberEntity a, MemberEntity b) {
+    return a.popularity > b.popularity ? -1 : 1;
+  }
 }

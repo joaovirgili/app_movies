@@ -127,8 +127,8 @@ class _MovieDetailsPageState
                 return MovieLabelInfoWidget(
                   isLoading: controller.isLoading,
                   label: 'PRODUTORAS',
-                  value: controller.movieDetails?.productionCompanies
-                      ?.separateByComma(),
+                  value:
+                      controller.movieDetails?.productionCompanies?.join(', '),
                   isExpanded: true,
                 );
               }),
@@ -140,7 +140,7 @@ class _MovieDetailsPageState
                 return MovieTextInfoWidget(
                   isLoading: controller.isLoading,
                   title: 'Diretor',
-                  content: '',
+                  content: controller.getDirectors().join(', '),
                 );
               }),
             ),
