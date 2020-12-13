@@ -149,7 +149,7 @@ class _HomePageState extends ModularState<HomePage, HomeController>
             ),
           );
         },
-        childCount: controller.movieList.length,
+        childCount: movies.length,
       ),
     );
   }
