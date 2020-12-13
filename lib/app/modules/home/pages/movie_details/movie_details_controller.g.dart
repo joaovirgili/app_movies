@@ -49,6 +49,22 @@ mixin _$MovieDetailsController on _MovieDetailsControllerBase, Store {
     });
   }
 
+  final _$isRefreshingAtom =
+      Atom(name: '_MovieDetailsControllerBase.isRefreshing');
+
+  @override
+  bool get isRefreshing {
+    _$isRefreshingAtom.reportRead();
+    return super.isRefreshing;
+  }
+
+  @override
+  set isRefreshing(bool value) {
+    _$isRefreshingAtom.reportWrite(value, super.isRefreshing, () {
+      super.isRefreshing = value;
+    });
+  }
+
   final _$_MovieDetailsControllerBaseActionController =
       ActionController(name: '_MovieDetailsControllerBase');
 
@@ -75,10 +91,22 @@ mixin _$MovieDetailsController on _MovieDetailsControllerBase, Store {
   }
 
   @override
+  void setIsRefreshing(bool refresh) {
+    final _$actionInfo = _$_MovieDetailsControllerBaseActionController
+        .startAction(name: '_MovieDetailsControllerBase.setIsRefreshing');
+    try {
+      return super.setIsRefreshing(refresh);
+    } finally {
+      _$_MovieDetailsControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 isLoading: ${isLoading},
-hasError: ${hasError}
+hasError: ${hasError},
+isRefreshing: ${isRefreshing}
     ''';
   }
 }

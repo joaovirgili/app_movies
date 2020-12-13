@@ -20,6 +20,9 @@ abstract class _MovieDetailsControllerBase with Store {
   @observable
   bool hasError = false;
 
+  @observable
+  bool isRefreshing = false;
+
   _MovieDetailsControllerBase(this.fetchMovieDetails);
 
   @action
@@ -27,6 +30,9 @@ abstract class _MovieDetailsControllerBase with Store {
 
   @action
   void setHasError(bool l) => hasError = l;
+
+  @action
+  void setIsRefreshing(bool refresh) => isRefreshing = refresh;
 
   Future<void> fetchDetails(int movieId) async {
     setIsLoading(true);
@@ -65,5 +71,14 @@ abstract class _MovieDetailsControllerBase with Store {
 
   int byPopularity(MemberEntity a, MemberEntity b) {
     return a.popularity > b.popularity ? -1 : 1;
+  }
+
+  Future<void> refreshPage(int movieId) async {
+    setIsRefreshing(true);
+    try {
+      await fetchDetails(movieId);
+    } catch (_) {}
+    await Future.delayed(Duration(milliseconds: 500));
+    setIsRefreshing(false);
   }
 }

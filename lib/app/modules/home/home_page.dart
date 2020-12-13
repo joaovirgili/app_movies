@@ -30,6 +30,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends ModularState<HomePage, HomeController>
     with SingleTickerProviderStateMixin {
   final scrollController = ScrollController();
+  final _refreshController = RefreshController();
   AnimationController _hideFabAnimation;
 
   bool _listReachedPercentage(double percent) =>
@@ -75,10 +76,9 @@ class _HomePageState extends ModularState<HomePage, HomeController>
   @override
   void dispose() {
     _hideFabAnimation.dispose();
+    _refreshController.dispose();
     super.dispose();
   }
-
-  final _refreshController = RefreshController();
 
   @override
   Widget build(BuildContext context) {
