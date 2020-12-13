@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 final flushBarError = Flushbar(
-  duration: Duration(seconds: 2),
+  duration: Duration(seconds: 1),
   backgroundColor: Colors.red,
   margin: EdgeInsets.symmetric(vertical: 8, horizontal: 100.w),
   borderRadius: 8,

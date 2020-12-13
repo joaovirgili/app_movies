@@ -9,10 +9,12 @@ import 'package:shimmer/shimmer.dart';
 
 import '../../../domain/entities/entities.dart';
 import '../../shared/assets.dart';
+import '../../shared/colors.dart';
 import '../../shared/components/flushbar_erro_widget.dart';
 import '../../shared/components/space_x_widget.dart';
 import '../../shared/components/space_y_widget.dart';
 import '../../shared/routes.dart';
+import '../../shared/styles.dart';
 import 'components/genre_badge_widget.dart';
 import 'components/movie_card_widget.dart';
 import 'home_controller.dart';
@@ -43,7 +45,7 @@ class _HomePageState extends ModularState<HomePage, HomeController>
     );
 
     scrollController.addListener(() {
-      if (_listReachedPercentage(0.03)) {
+      if (_listReachedPercentage(0.03) && !controller.hasError) {
         if (!_hideFabAnimation.isCompleted) {
           _hideFabAnimation.forward();
         }
@@ -52,7 +54,9 @@ class _HomePageState extends ModularState<HomePage, HomeController>
       }
 
       if (_listReachedPercentage(0.85)) {
-        if (!controller.isLoadingPage && controller.hasNextPage) {
+        if (!controller.hasError &&
+            !controller.isLoadingPage &&
+            controller.hasNextPage) {
           controller.fetchMovieListNextPage();
         }
       }
@@ -62,6 +66,7 @@ class _HomePageState extends ModularState<HomePage, HomeController>
       autorun((_) {
         if (controller.hasError) {
           flushBarError.show(context);
+          _hideFabAnimation.reverse();
         }
       });
     });
@@ -98,61 +103,76 @@ class _HomePageState extends ModularState<HomePage, HomeController>
       ),
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
-        child: SafeArea(
-          child: SmartRefresher(
-            header: MaterialClassicHeader(),
-            controller: _refreshController,
-            onRefresh: _onRefresh,
-            child: CustomScrollView(
-              controller: scrollController,
-              slivers: [
-                SliverAppBar(
-                  titleSpacing: 20.w,
-                  title: Text('Filmes'),
-                  centerTitle: false,
-                ),
-                SliverToBoxAdapter(child: const SpaceY(10)),
-                SliverToBoxAdapter(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20.w),
-                    child: Column(
-                      children: [
-                        TextField(
-                          onChanged: controller.onChangeFilter,
-                          decoration: InputDecoration(
-                            hintText: 'Pesquise filmes',
-                            prefixIcon: Image.asset(AppAssets.search),
-                          ),
+        child: SmartRefresher(
+          header: Theme(
+            data: Theme.of(context).copyWith(primaryColor: AppColors.blue01),
+            child: MaterialClassicHeader(),
+          ),
+          controller: _refreshController,
+          onRefresh: _onRefresh,
+          child: CustomScrollView(
+            controller: scrollController,
+            slivers: [
+              SliverAppBar(
+                titleSpacing: 20.w,
+                title: Text('Filmes'),
+                centerTitle: false,
+              ),
+              SliverToBoxAdapter(child: const SpaceY(10)),
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  child: Column(
+                    children: [
+                      TextField(
+                        onChanged: controller.onChangeFilter,
+                        decoration: InputDecoration(
+                          hintText: 'Pesquise filmes',
+                          prefixIcon: Image.asset(AppAssets.search),
                         ),
-                        SpaceY(15),
-                        Observer(builder: (_) {
-                          return SizedBox(
-                            height: 25.h,
-                            child: AnimatedSwitcher(
-                              duration: const Duration(milliseconds: 250),
-                              child: controller.isLoadingGenre
-                                  ? _buildGenreLoading()
-                                  : _buildGenreListView(),
-                            ),
-                          );
-                        }),
-                      ],
-                    ),
+                      ),
+                      SpaceY(15),
+                      Observer(builder: (_) {
+                        return SizedBox(
+                          height: 25.h,
+                          child: AnimatedSwitcher(
+                            duration: const Duration(milliseconds: 250),
+                            child: controller.isLoadingGenre
+                                ? _buildGenreLoading()
+                                : _buildGenreListView(),
+                          ),
+                        );
+                      }),
+                    ],
                   ),
                 ),
-                SliverToBoxAdapter(child: const SpaceY(20)),
-                Observer(builder: (_) {
-                  return !controller.showMovies
-                      ? _buildLoadingMovies()
-                      : _buildMovieListView(controller.movieList
-                          .where(controller.filterByTitle)
-                          .toList());
-                }),
-              ],
-            ),
+              ),
+              // SliverToBoxAdapter(child: const SpaceY(20)),
+              Observer(builder: (_) {
+                return !controller.showMovies
+                    ? _buildLoadingMovies()
+                    : controller.hasError
+                        ? _buildErroMessage()
+                        : _buildMovieListView(controller.movieList
+                            .where(controller.filterByTitle)
+                            .toList());
+              }),
+            ],
           ),
         ),
       ),
+    );
+  }
+
+  SliverFillRemaining _buildErroMessage() {
+    return SliverFillRemaining(
+      hasScrollBody: false,
+      child: Center(
+          child: Text(
+        'Não foi possível carregar os filmes. \nArrasta para baixo para tentar novamente.',
+        style: AppStyles.textFieldHintStyle,
+        textAlign: TextAlign.center,
+      )),
     );
   }
 

@@ -44,7 +44,9 @@ abstract class _HomeControllerBase with Store implements Disposable {
   @computed
   bool get showMovies => !isLoadingGenre && !isLoadingMovie;
 
-  bool get hasNextPage => movieListPage.totalPages > movieListPage.page;
+  bool get hasNextPage => movieListPage == null
+      ? false
+      : movieListPage.totalPages > movieListPage.page;
 
   _HomeControllerBase({
     @required this.fetchGenreListUsecase,
@@ -98,6 +100,7 @@ abstract class _HomeControllerBase with Store implements Disposable {
   Future<void> fetchMovieList() async {
     setIsLoadingMovie(true);
     setHasError(false);
+    setMovieList(<MoviePreviewEntity>[]);
     try {
       movieListPage = await fetchMovieListByGenreUsecase(
         genreId: selectedGenre.id,
