@@ -25,7 +25,7 @@ void main() {
 
   group('Fetch movie', () {
     final params = FetchMovieDetailsParams(id: 550, language: 'pt-br');
-    final responseMock = {
+    final Map<String, dynamic> responseMock = {
       'budget': 63000000,
       'genres': [
         {'id': 18, 'name': 'Drama'}
@@ -81,7 +81,39 @@ void main() {
         }
       ],
       'release_date': '1999-10-15',
-      'title': 'Clube da Luta'
+      'title': 'Clube da Luta',
+      'credits': {
+        'cast': [
+          {
+            'adult': false,
+            'gender': 2,
+            'id': 376,
+            'known_for_department': 'Production',
+            'name': 'Arnon Milchan',
+            'original_name': 'Arnon Milchan',
+            'popularity': 1.22,
+            'profile_path': '/b2hBExX4NnczNAnLuTBF4kmNhZm.jpg',
+            'credit_id': '55731b8192514111610027d7',
+            'department': 'Production',
+            'job': 'Executive Producer'
+          },
+        ],
+        'crew': [
+          {
+            'adult': false,
+            'gender': 2,
+            'id': 376,
+            'known_for_department': 'Production',
+            'name': 'Arnon Milchan',
+            'original_name': 'Arnon Milchan',
+            'popularity': 1.22,
+            'profile_path': '/b2hBExX4NnczNAnLuTBF4kmNhZm.jpg',
+            'credit_id': '55731b8192514111610027d7',
+            'department': 'Production',
+            'job': 'Executive Producer'
+          },
+        ]
+      }
     };
     final url = '${Api.baseUrl}${Api.movie}${params.id}';
 
@@ -100,6 +132,7 @@ void main() {
         queryParameters: {
           'api_key': apiKey,
           'language': params.language,
+          'append_to_response': 'credits',
         },
       ));
     });

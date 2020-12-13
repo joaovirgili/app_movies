@@ -19,6 +19,7 @@ class MovieRepository implements IMovieRepository {
     final queryParameters = {
       'api_key': apiKey,
       'language': params.language ?? Api.defaultLanguage,
+      'append_to_response': 'credits',
     };
 
     try {
