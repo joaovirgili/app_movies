@@ -33,10 +33,10 @@ abstract class _MovieDetailsControllerBase with Store {
     setHasError(false);
     try {
       movieDetails = await fetchMovieDetails(movieId);
+      setIsLoading(false);
     } catch (e) {
       setHasError(true);
     }
-    setIsLoading(false);
   }
 
   List<String> getDirectors() {

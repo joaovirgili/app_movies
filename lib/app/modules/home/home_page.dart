@@ -56,10 +56,12 @@ class _HomePageState extends ModularState<HomePage, HomeController>
       }
     });
 
-    autorun((_) {
-      if (controller.hasError) {
-        flushBarError.show(context);
-      }
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      autorun((_) {
+        if (controller.hasError) {
+          flushBarError.show(context);
+        }
+      });
     });
   }
 

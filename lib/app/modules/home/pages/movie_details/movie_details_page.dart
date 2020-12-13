@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mobx/mobx.dart';
+import 'package:movies/app/shared/components/flushbar_erro_widget.dart';
 
 import '../../../../../domain/entities/entities.dart';
 import '../../../../shared/extensions/extensions.dart';
@@ -28,6 +30,14 @@ class _MovieDetailsPageState
   void initState() {
     super.initState();
     controller.fetchDetails(widget.moviePreview.id);
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      autorun((_) {
+        if (controller.hasError) {
+          flushBarError.show(context);
+        }
+      });
+    });
   }
 
   @override
