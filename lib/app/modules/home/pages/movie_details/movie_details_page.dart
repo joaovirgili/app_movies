@@ -44,12 +44,12 @@ class _MovieDetailsPageState
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                MovieInfoWidget(
+                MovieLabelInfoWidget(
                   label: 'Ano',
                   value: '2019',
                 ),
                 SpaceX(12),
-                MovieInfoWidget(
+                MovieLabelInfoWidget(
                   label: 'Duração',
                   value: '1h 20min',
                 ),
@@ -69,6 +69,7 @@ class _MovieDetailsPageState
                 ),
               ],
             ),
+            SpaceY(50),
           ],
         ),
       ),

@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '../../../../../shared/colors.dart';
 import '../../../../../shared/styles.dart';
 
-class MovieInfoWidget extends StatelessWidget {
-  const MovieInfoWidget({
+class MovieLabelInfoWidget extends StatelessWidget {
+  const MovieLabelInfoWidget({
     @required this.label,
     @required this.value,
     Key key,
