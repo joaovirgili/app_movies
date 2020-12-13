@@ -69,7 +69,10 @@ class MovieDetailsModel {
         originalTitle: originalTitle,
         voteAverage: voteAverage,
         runtime: runtime,
-        cast: credits.cast.map((e) => e.toEntity()).toList(),
+        cast: credits.cast
+            .where((e) => e.knownForDepartment == 'Acting')
+            .map((e) => e.toEntity())
+            .toList(),
         directors: credits.crew
             .where((e) => e.department == 'Directing')
             .map((e) => e.toEntity())

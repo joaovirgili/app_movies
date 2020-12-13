@@ -51,6 +51,18 @@ abstract class _MovieDetailsControllerBase with Store {
     return vip.map((e) => e.name).toList();
   }
 
+  List<String> getCast() {
+    if (movieDetails == null) {
+      return <String>[];
+    }
+    movieDetails.cast.sort(byPopularity);
+    final vip = movieDetails.cast.length > 5
+        ? movieDetails.cast.getRange(0, 5)
+        : movieDetails.cast;
+
+    return vip.map((e) => e.name).toList();
+  }
+
   int byPopularity(MemberEntity a, MemberEntity b) {
     return a.popularity > b.popularity ? -1 : 1;
   }

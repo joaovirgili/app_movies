@@ -151,7 +151,7 @@ class _MovieDetailsPageState
                 return MovieTextInfoWidget(
                   isLoading: controller.isLoading,
                   title: 'Elenco',
-                  content: '',
+                  content: controller.getCast().join(', '),
                 );
               }),
             ),
