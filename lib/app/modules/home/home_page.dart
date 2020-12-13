@@ -136,12 +136,15 @@ class _HomePageState extends ModularState<HomePage, HomeController>
         (context, index) {
           final currentMovie = movies[index];
 
-          return MovieCardWidget(
-            title: currentMovie.title,
-            genres: controller.genresToName(currentMovie.genreIds),
-            image: currentMovie.posterPath,
-            onTap: () =>
-                Modular.to.pushNamed(AppRoutes.movie, arguments: currentMovie),
+          return Hero(
+            tag: currentMovie.id,
+            child: MovieCardWidget(
+              title: currentMovie.title,
+              genres: controller.genresToName(currentMovie.genreIds),
+              image: currentMovie.posterPath,
+              onTap: () => Modular.to
+                  .pushNamed(AppRoutes.movie, arguments: currentMovie),
+            ),
           );
         },
         childCount: movies.length,
