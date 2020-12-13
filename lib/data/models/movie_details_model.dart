@@ -55,7 +55,7 @@ class MovieDetailsModel {
         budget: json['budget'] == null ? null : json['budget'],
         genres: json['genres'] == null
             ? null
-            : (json['genres'] as List).map((e) => e['name']).toList(),
+            : (json['genres'] as List).map((e) => e['name'] as String).toList(),
         id: json['id'] == null ? null : json['id'],
         originalLanguage: json['original_language'] == null
             ? null
@@ -67,7 +67,7 @@ class MovieDetailsModel {
         productionCompanies: json['production_companies'] == null
             ? null
             : (json['production_companies'] as List)
-                .map((e) => e['name'])
+                .map((e) => e['name'] as String)
                 .toList(),
         releaseDate: json['release_date'] == null
             ? null

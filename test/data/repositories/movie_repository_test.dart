@@ -1,4 +1,3 @@
-import 'package:faker/faker.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
@@ -27,9 +26,62 @@ void main() {
   group('Fetch movie', () {
     final params = FetchMovieDetailsParams(id: 550, language: 'pt-br');
     final responseMock = {
-      'title': faker.person.name(),
+      'budget': 63000000,
+      'genres': [
+        {'id': 18, 'name': 'Drama'}
+      ],
       'id': 550,
-      'voteAverage': 8.5,
+      'original_language': 'en',
+      'original_title': 'Fight Club',
+      'overview':
+          'Um homem deprimido que sofre de insônia conhece um estranho vendedor chamado Tyler Durden e se vê morando em uma casa suja depois que seu perfeito apartamento é destruído. A dupla forma um clube com regras rígidas onde homens lutam. A parceria perfeita é comprometida quando uma mulher, Marla, atrai a atenção de Tyler.',
+      'poster_path': '/ohXr0v9U0TfFu9IXbSDm5zoGV3R.jpg',
+      'production_companies': [
+        {
+          'id': 508,
+          'logo_path': '/7PzJdsLGlR7oW4J0J5Xcd0pHGRg.png',
+          'name': 'Regency Enterprises',
+          'origin_country': 'US'
+        },
+        {
+          'id': 711,
+          'logo_path': '/tEiIH5QesdheJmDAqQwvtN60727.png',
+          'name': 'Fox 2000 Pictures',
+          'origin_country': 'US'
+        },
+        {
+          'id': 20555,
+          'logo_path': '/hD8yEGUBlHOcfHYbujp71vD8gZp.png',
+          'name': 'Taurus Film',
+          'origin_country': 'DE'
+        },
+        {
+          'id': 54051,
+          'logo_path': null,
+          'name': 'Atman Entertainment',
+          'origin_country': ''
+        },
+        {
+          'id': 54052,
+          'logo_path': null,
+          'name': 'Knickerbocker Films',
+          'origin_country': 'US'
+        },
+        {
+          'id': 25,
+          'logo_path': '/qZCc1lty5FzX30aOCVRBLzaVmcp.png',
+          'name': '20th Century Fox',
+          'origin_country': 'US'
+        },
+        {
+          'id': 4700,
+          'logo_path': '/A32wmjrs9Psf4zw0uaixF0GXfxq.png',
+          'name': 'The Linson Company',
+          'origin_country': ''
+        }
+      ],
+      'release_date': '1999-10-15',
+      'title': 'Clube da Luta'
     };
     final url = '${Api.baseUrl}${Api.movie}${params.id}';
 
