@@ -2,9 +2,6 @@
   MovieApp - TheMovieDB
 </h1>
 
-
-<img src="https://i.imgur.com/lXKL6Bq.mp4" width="150"/>
-
 # :rocket: Como rodar o app?
 
 1. Certifique-se de ter o Flutter instalado: https://flutter.dev/
