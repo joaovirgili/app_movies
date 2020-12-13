@@ -7,6 +7,7 @@ import '../../domain/repositories/repositories.dart';
 import '../../shared/api/api.dart';
 import '../http/http.dart';
 import '../models/models.dart';
+import '../models/movie_details_model.dart';
 
 class MovieRepository implements IMovieRepository {
   final IHttpClient httpClient;
@@ -14,7 +15,7 @@ class MovieRepository implements IMovieRepository {
   MovieRepository({@required this.httpClient});
 
   @override
-  Future<MoviePreviewEntity> fetchMovie(FetchMovieParams params) async {
+  Future<MovieDetailsEntity> fetchMovie(FetchMovieDetailsParams params) async {
     final queryParameters = {
       'api_key': apiKey,
       'language': params.language ?? Api.defaultLanguage,
@@ -25,7 +26,7 @@ class MovieRepository implements IMovieRepository {
         url: '${Api.baseUrl}${Api.movie}${params.id}',
         queryParameters: queryParameters,
       );
-      return MoviePreviewModel.fromJson(httpResponse).toEntity();
+      return MovieDetailsModel.fromJson(httpResponse).toEntity();
     } on HttpError catch (e) {
       switch (e) {
         case HttpError.notFound:

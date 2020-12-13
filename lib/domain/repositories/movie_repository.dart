@@ -4,16 +4,16 @@ import 'package:meta/meta.dart';
 import '../entities/entities.dart';
 
 abstract class IMovieRepository {
-  Future<MoviePreviewEntity> fetchMovie(FetchMovieParams params);
+  Future<MovieDetailsEntity> fetchMovie(FetchMovieDetailsParams params);
 
   Future<MovieListPageEntity> fetchMovieList(FetchMovieListParams param);
 }
 
-class FetchMovieParams {
+class FetchMovieDetailsParams {
   final int id;
   final String language;
 
-  FetchMovieParams({@required this.id, this.language});
+  FetchMovieDetailsParams({@required this.id, this.language});
 }
 
 class FetchMovieListParams extends Equatable {

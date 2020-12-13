@@ -25,7 +25,7 @@ void main() {
   });
 
   group('Fetch movie', () {
-    final params = FetchMovieParams(id: 550, language: 'pt-br');
+    final params = FetchMovieDetailsParams(id: 550, language: 'pt-br');
     final responseMock = {
       'title': faker.person.name(),
       'id': 550,
@@ -100,7 +100,7 @@ void main() {
       'page': 1,
       'results': [
         {
-          'backdrop_path': '/jeAQdDX9nguP6YOX6QSWKDPkbBo.jpg',
+          'poster_path': '/jeAQdDX9nguP6YOX6QSWKDPkbBo.jpg',
           'genre_ids': [28, 14, 878],
           'id': 590706,
           'title': 'Jiu Jitsu'
