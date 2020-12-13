@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../../../shared/colors.dart';
 import '../../../../../shared/components/components.dart';
@@ -8,11 +9,13 @@ class MovieTitlesWidget extends StatelessWidget {
   const MovieTitlesWidget({
     @required this.title,
     @required this.originalTitle,
+    this.isLoading = false,
     Key key,
   }) : super(key: key);
 
   final String title;
   final String originalTitle;
+  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
@@ -25,18 +28,27 @@ class MovieTitlesWidget extends StatelessWidget {
           ),
         ),
         SpaceY(12),
-        RichText(
-          text: TextSpan(
-            text: 'Título original: ',
-            style: AppStyles.originalTitle,
-            children: [
-              TextSpan(
-                text: originalTitle,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Título original: ',
+              style: AppStyles.originalTitle,
+            ),
+            if (isLoading)
+              Shimmer.fromColors(
+                baseColor: Colors.grey[300],
+                highlightColor: Colors.grey[100],
+                enabled: isLoading,
+                child: Container(width: 70, color: Colors.black, height: 15),
+              ),
+            if (!isLoading)
+              Text(
+                originalTitle,
                 style: AppStyles.originalTitle
                     .copyWith(fontWeight: FontWeight.w600),
-              ),
-            ],
-          ),
+              )
+          ],
         )
       ],
     );

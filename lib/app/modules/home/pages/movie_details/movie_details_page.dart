@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mobx/mobx.dart';
 
 import '../../../../../domain/entities/entities.dart';
+import '../../../../shared/extensions/int_to_hour_minute.dart';
 import '../../../../shared/components/components.dart';
+import '../../../../shared/components/shimmer_effetc_widget.dart';
 import 'components/components.dart';
 import 'movie_details_controller.dart';
 
@@ -22,6 +26,12 @@ class MovieDetailsPage extends StatefulWidget {
 class _MovieDetailsPageState
     extends ModularState<MovieDetailsPage, MovieDetailsController> {
   @override
+  void initState() {
+    super.initState();
+    controller.fetchDetails(widget.moviePreview.id);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
@@ -35,25 +45,44 @@ class _MovieDetailsPageState
               ),
             ),
             SpaceY(32),
-            GradeWidget(grade: 7.3),
+            Observer(builder: (_) {
+              return ShimmerEffect(
+                enable: controller.isLoading,
+                child: GradeWidget(grade: controller.movieDetails?.voteAverage),
+              );
+            }),
             SpaceY(32),
-            MovieTitlesWidget(
-              title: 'Capitã Marvel',
-              originalTitle: 'Captain Marvel',
-            ),
+            Observer(builder: (_) {
+              return MovieTitlesWidget(
+                isLoading: controller.isLoading,
+                title: widget.moviePreview.title,
+                originalTitle: controller.movieDetails?.originalTitle,
+              );
+            }),
             SpaceY(32),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                MovieLabelInfoWidget(
-                  label: 'Ano',
-                  value: '2019',
-                ),
+                Observer(builder: (_) {
+                  return ShimmerEffect(
+                    enable: controller.isLoading,
+                    child: MovieLabelInfoWidget(
+                      label: 'Ano',
+                      value: controller?.movieDetails?.releaseDate?.year
+                          ?.toString(),
+                    ),
+                  );
+                }),
                 SpaceX(12),
-                MovieLabelInfoWidget(
-                  label: 'Duração',
-                  value: '1h 20min',
-                ),
+                Observer(builder: (_) {
+                  return ShimmerEffect(
+                    enable: controller.isLoading,
+                    child: MovieLabelInfoWidget(
+                      label: 'Duração',
+                      value: controller?.movieDetails?.runtime?.toHourMinute(),
+                    ),
+                  );
+                }),
               ],
             ),
             SpaceY(12),

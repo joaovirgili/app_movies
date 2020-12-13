@@ -14,7 +14,7 @@ class GradeWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return RichText(
       text: TextSpan(
-        text: '$grade',
+        text: grade?.toString() ?? '',
         style: AppStyles.movieGradeTextStyle,
         children: [
           TextSpan(
