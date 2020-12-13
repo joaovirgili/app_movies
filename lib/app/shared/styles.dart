@@ -7,7 +7,7 @@ import 'colors.dart';
 class AppStyles {
   static final appBarTitleStyle = GoogleFonts.montserrat(
     fontSize: 18.sp,
-    fontWeight: FontWeight.w600,
+    fontWeight: FontWeight.w500,
     color: AppColors.gray06,
   );
 
@@ -31,7 +31,7 @@ class AppStyles {
 
   static final cardTitleTextStyle = GoogleFonts.montserrat(
     fontSize: 14.sp,
-    fontWeight: FontWeight.w600,
+    fontWeight: FontWeight.w500,
     color: AppColors.white,
   );
 
@@ -42,14 +42,14 @@ class AppStyles {
   );
 
   static final movieGradeTextStyle = GoogleFonts.montserrat(
-    fontSize: 24.sp,
-    fontWeight: FontWeight.w600,
+    fontSize: 26.sp,
+    fontWeight: FontWeight.w500,
     color: AppColors.blue01,
   );
 
   static final maxGradeTextStyle = GoogleFonts.montserrat(
-    fontSize: 14.sp,
-    fontWeight: FontWeight.w600,
+    fontSize: 16.sp,
+    fontWeight: FontWeight.w500,
     color: AppColors.gray03,
   );
 
@@ -58,4 +58,13 @@ class AppStyles {
     fontWeight: FontWeight.w300,
     color: AppColors.gray05,
   );
+
+  static final originalTitle = GoogleFonts.montserrat(
+    fontSize: 12.sp,
+    fontWeight: FontWeight.w300,
+    color: AppColors.gray04,
+  );
+
+  static final movieOriginalTitle =
+      originalTitle.copyWith(fontWeight: FontWeight.w500);
 }
