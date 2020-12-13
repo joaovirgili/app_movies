@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import '../../../../shared/colors.dart';
+import '../../../../../domain/entities/entities.dart';
 import '../../../../shared/components/components.dart';
+import 'components/components.dart';
 import 'movie_details_controller.dart';
 
 class MovieDetailsPage extends StatefulWidget {
-  final String title;
-  const MovieDetailsPage({Key key, this.title = 'MovieDetails'})
-      : super(key: key);
+  final MoviePreviewEntity moviePreview;
+
+  const MovieDetailsPage({
+    @required this.moviePreview,
+    Key key,
+  }) : super(key: key);
 
   @override
   _MovieDetailsPageState createState() => _MovieDetailsPageState();
@@ -16,20 +20,29 @@ class MovieDetailsPage extends StatefulWidget {
 
 class _MovieDetailsPageState
     extends ModularState<MovieDetailsPage, MovieDetailsController> {
-  //use 'controller' variable to access controller
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.gray00,
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            title: AppBackButton(),
-            centerTitle: false,
-            automaticallyImplyLeading: false,
-          ),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            CustomAppBar(),
+            Hero(
+              tag: widget.moviePreview.id,
+              child: MoviePosterWidget(
+                image: widget.moviePreview.posterPath,
+              ),
+            ),
+            SpaceY(32),
+            GradeWidget(grade: 7.3),
+            SpaceY(32),
+            MovieTitlesWidget(
+              title: 'Capitã Marvel',
+              originalTitle: 'Captain Marvel',
+            ),
+            SpaceY(32),
+          ],
+        ),
       ),
     );
   }
