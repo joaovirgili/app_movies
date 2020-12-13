@@ -36,6 +36,15 @@ void main() {
 
   setUp(() async {
     when(
+      fetchGenreListMock(),
+    ).thenAnswer(
+      (_) async {
+        await Future.delayed(const Duration(milliseconds: 200));
+        return [GenreEntity(name: '', id: 0)];
+      },
+    );
+
+    when(
       fetchMovieListMock(genreId: anyNamed('genreId')),
     ).thenAnswer(
       (_) async {
@@ -54,35 +63,24 @@ void main() {
     sut = HomeModule.to.get<HomeController>();
     sut.setSelectedGenre(GenreEntity(id: 28, name: 'Ação'));
   });
+
   test('First Test', () {
     expect(sut, isInstanceOf<HomeController>());
   });
 
   group('fetchGenresUsecase Test', () {
-    void mockSuccess() => when(
-          fetchGenreListMock(),
-        ).thenAnswer(
-          (_) async {
-            await Future.delayed(const Duration(milliseconds: 200));
-            return [GenreEntity(name: '', id: 0)];
-          },
-        );
-
     test('Should call fetchGenresUsecase on init', () {
-      mockSuccess();
       expect(sut.isLoadingGenre, isTrue);
       verify(fetchGenreListMock()).called(1);
     });
 
     test('Should stop loading after fetchGenresUsecase finishes', () async {
-      mockSuccess();
       await sut.fetchGenreList();
       expect(sut.isLoadingGenre, isFalse);
     });
 
     test('genreList should not be empty after fetchGenresUsecase finishes',
         () async {
-      mockSuccess();
       await sut.fetchGenreList();
       expect(sut.genreList, isNotEmpty);
     });
@@ -92,15 +90,12 @@ void main() {
       when(
         fetchGenreListMock(),
       ).thenThrow(Exception());
+      await sut.fetchGenreList();
       expect(sut.hasError, isTrue);
     });
   });
 
   group('fetchMovieListusecase Test', () {
-    test('Should call fetchMovieListusecase on init', () {
-      verify(fetchMovieListMock(genreId: anyNamed('genreId'))).called(1);
-    });
-
     test('Should stop loading after fetchMovieListusecase finishes', () async {
       await sut.fetchMovieList();
       expect(sut.isLoadingMovie, isFalse);
@@ -110,6 +105,16 @@ void main() {
         () async {
       await sut.fetchMovieList();
       expect(sut.movieList, isNotEmpty);
+    });
+
+    test(
+        'hasError should be true if fetchMovieListByGenreUsecase throws exception',
+        () async {
+      when(
+        fetchMovieListMock(genreId: anyNamed('genreId')),
+      ).thenThrow(Exception());
+      await sut.fetchMovieList();
+      expect(sut.hasError, isTrue);
     });
   });
 

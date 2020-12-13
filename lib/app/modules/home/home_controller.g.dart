@@ -119,6 +119,21 @@ mixin _$HomeController on _HomeControllerBase, Store {
     });
   }
 
+  final _$hasErrorAtom = Atom(name: '_HomeControllerBase.hasError');
+
+  @override
+  bool get hasError {
+    _$hasErrorAtom.reportRead();
+    return super.hasError;
+  }
+
+  @override
+  set hasError(bool value) {
+    _$hasErrorAtom.reportWrite(value, super.hasError, () {
+      super.hasError = value;
+    });
+  }
+
   final _$filterTextAtom = Atom(name: '_HomeControllerBase.filterText');
 
   @override
@@ -204,6 +219,17 @@ mixin _$HomeController on _HomeControllerBase, Store {
   }
 
   @override
+  void setHasError(bool loading) {
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+        name: '_HomeControllerBase.setHasError');
+    try {
+      return super.setHasError(loading);
+    } finally {
+      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void setSelectedGenre(GenreEntity genre) {
     final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
         name: '_HomeControllerBase.setSelectedGenre');
@@ -234,6 +260,7 @@ selectedGenre: ${selectedGenre},
 isLoadingGenre: ${isLoadingGenre},
 isLoadingMovie: ${isLoadingMovie},
 isLoadingPage: ${isLoadingPage},
+hasError: ${hasError},
 filterText: ${filterText},
 showMovies: ${showMovies}
     ''';

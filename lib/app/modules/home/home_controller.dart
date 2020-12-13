@@ -97,21 +97,30 @@ abstract class _HomeControllerBase with Store implements Disposable {
 
   Future<void> fetchMovieList() async {
     setIsLoadingMovie(true);
-    movieListPage = await fetchMovieListByGenreUsecase(
-      genreId: selectedGenre.id,
-    );
-    setMovieList(movieListPage.movies);
+    setHasError(false);
+    try {
+      movieListPage = await fetchMovieListByGenreUsecase(
+        genreId: selectedGenre.id,
+      );
+      setMovieList(movieListPage.movies);
+    } catch (e) {
+      setHasError(true);
+    }
     setIsLoadingMovie(false);
   }
 
   Future<void> fetchMovieListNextPage() async {
     setIsLoadingPage(true);
-    movieListPage.page++;
-    movieListPage = await fetchMovieListByGenreUsecase(
-      genreId: selectedGenre.id,
-      page: movieListPage.page,
-    );
-    addMoviesToList(movieListPage.movies);
+    setHasError(false);
+    try {
+      movieListPage = await fetchMovieListByGenreUsecase(
+        genreId: selectedGenre.id,
+        page: movieListPage.page + 1,
+      );
+      addMoviesToList(movieListPage.movies);
+    } catch (e) {
+      setHasError(true);
+    }
     setIsLoadingPage(false);
   }
 
