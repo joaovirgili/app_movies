@@ -85,4 +85,10 @@ class AppStyles {
     fontWeight: FontWeight.w500,
     color: AppColors.gray04,
   );
+
+  static final movieInfoTextContent = GoogleFonts.montserrat(
+    fontSize: 13.sp,
+    fontWeight: FontWeight.w500,
+    color: AppColors.gray06,
+  );
 }

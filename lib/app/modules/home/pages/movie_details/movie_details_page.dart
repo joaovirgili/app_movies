@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../domain/entities/entities.dart';
 import '../../../../shared/components/components.dart';
@@ -68,6 +69,15 @@ class _MovieDetailsPageState
                   genre: 'sci-fi',
                 ),
               ],
+            ),
+            SpaceY(50),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              child: MovieTextInfoWidget(
+                title: 'Descrição',
+                content:
+                    'Aventura sobre Carol Danvers, uma agente da CIA que tem contato com uma raça alienígena e ganha poderes sobre-humanos. Entre os seus poderes estão uma força fora do comum e a habilidade de voar.',
+              ),
             ),
             SpaceY(50),
           ],
