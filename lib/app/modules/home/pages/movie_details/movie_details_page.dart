@@ -63,23 +63,19 @@ class _MovieDetailsPageState
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Observer(builder: (_) {
-                  return ShimmerEffect(
-                    enable: controller.isLoading,
-                    child: MovieLabelInfoWidget(
-                      label: 'Ano',
-                      value: controller?.movieDetails?.releaseDate?.year
-                          ?.toString(),
-                    ),
+                  return MovieLabelInfoWidget(
+                    isLoading: controller.isLoading,
+                    label: 'Ano',
+                    value:
+                        controller?.movieDetails?.releaseDate?.year?.toString(),
                   );
                 }),
                 SpaceX(12),
                 Observer(builder: (_) {
-                  return ShimmerEffect(
-                    enable: controller.isLoading,
-                    child: MovieLabelInfoWidget(
-                      label: 'Duração',
-                      value: controller?.movieDetails?.runtime?.toHourMinute(),
-                    ),
+                  return MovieLabelInfoWidget(
+                    isLoading: controller.isLoading,
+                    label: 'Duração',
+                    value: controller?.movieDetails?.runtime?.toHourMinute(),
                   );
                 }),
               ],
@@ -115,20 +111,27 @@ class _MovieDetailsPageState
             SpaceY(40),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w),
-              child: MovieLabelInfoWidget(
-                label: 'ORÇAMENTO',
-                value: '\$ 152,000,000',
-                isExpanded: true,
-              ),
+              child: Observer(builder: (_) {
+                return MovieLabelInfoWidget(
+                  isLoading: controller.isLoading,
+                  label: 'ORÇAMENTO',
+                  value: controller.movieDetails?.budget?.toSimpleCurrency(),
+                  isExpanded: true,
+                );
+              }),
             ),
             SpaceY(4),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w),
-              child: MovieLabelInfoWidget(
-                label: 'PRODUTORAS',
-                value: 'Marvel studios',
-                isExpanded: true,
-              ),
+              child: Observer(builder: (_) {
+                return MovieLabelInfoWidget(
+                  isLoading: controller.isLoading,
+                  label: 'PRODUTORAS',
+                  value: controller.movieDetails?.productionCompanies
+                      ?.separateByComma(),
+                  isExpanded: true,
+                );
+              }),
             ),
             SpaceY(40),
             Padding(
@@ -148,8 +151,7 @@ class _MovieDetailsPageState
                 return MovieTextInfoWidget(
                   isLoading: controller.isLoading,
                   title: 'Elenco',
-                  content:
-                      'Brie Larson, Samuel L. Jackson, Ben Mendelsohn, Djimon Hounsou, Lee Pace',
+                  content: '',
                 );
               }),
             ),
