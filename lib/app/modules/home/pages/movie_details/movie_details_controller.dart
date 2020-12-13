@@ -12,5 +12,12 @@ class MovieDetailsController = _MovieDetailsControllerBase
 abstract class _MovieDetailsControllerBase with Store {
   final IFetchMovieDetails fetchMovieDetails;
 
+  @observable
+  bool isLoading = true;
+
   _MovieDetailsControllerBase(this.fetchMovieDetails);
+
+  Future<void> fetchDetails(int movieId) async {
+    return fetchMovieDetails(movieId);
+  }
 }
