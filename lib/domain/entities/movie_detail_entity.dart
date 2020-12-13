@@ -11,6 +11,7 @@ class MovieDetailsEntity {
     this.releaseDate,
     this.title,
     this.voteAverage,
+    this.runtime,
   });
 
   final int budget;
@@ -24,29 +25,5 @@ class MovieDetailsEntity {
   final DateTime releaseDate;
   final String title;
   final double voteAverage;
-
-  MovieDetailsEntity copyWith({
-    int budget,
-    List<String> genres,
-    int id,
-    String originalLanguage,
-    String originalTitle,
-    String overview,
-    String posterPath,
-    List<String> productionCompanies,
-    DateTime releaseDate,
-    String title,
-  }) =>
-      MovieDetailsEntity(
-        budget: budget ?? this.budget,
-        genres: genres ?? this.genres,
-        id: id ?? this.id,
-        originalLanguage: originalLanguage ?? this.originalLanguage,
-        originalTitle: originalTitle ?? this.originalTitle,
-        overview: overview ?? this.overview,
-        posterPath: posterPath ?? this.posterPath,
-        productionCompanies: productionCompanies ?? this.productionCompanies,
-        releaseDate: releaseDate ?? this.releaseDate,
-        title: title ?? this.title,
-      );
+  final int runtime;
 }

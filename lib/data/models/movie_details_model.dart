@@ -13,6 +13,7 @@ class MovieDetailsModel {
     this.releaseDate,
     this.title,
     this.voteAverage,
+    this.runtime,
   });
 
   final int budget;
@@ -26,31 +27,7 @@ class MovieDetailsModel {
   final DateTime releaseDate;
   final String title;
   final double voteAverage;
-
-  MovieDetailsModel copyWith({
-    int budget,
-    List<String> genres,
-    int id,
-    String originalLanguage,
-    String originalTitle,
-    String overview,
-    String posterPath,
-    List<String> productionCompanies,
-    DateTime releaseDate,
-    String title,
-  }) =>
-      MovieDetailsModel(
-        budget: budget ?? this.budget,
-        genres: genres ?? this.genres,
-        id: id ?? this.id,
-        originalLanguage: originalLanguage ?? this.originalLanguage,
-        originalTitle: originalTitle ?? this.originalTitle,
-        overview: overview ?? this.overview,
-        posterPath: posterPath ?? this.posterPath,
-        productionCompanies: productionCompanies ?? this.productionCompanies,
-        releaseDate: releaseDate ?? this.releaseDate,
-        title: title ?? this.title,
-      );
+  final int runtime;
 
   factory MovieDetailsModel.fromJson(Map<String, dynamic> json) =>
       MovieDetailsModel(
@@ -73,6 +50,7 @@ class MovieDetailsModel {
             : DateTime.parse(json['release_date']),
         title: json['title'],
         voteAverage: json['vote_average'],
+        runtime: json['runtime'],
       );
 
   MovieDetailsEntity toEntity() => MovieDetailsEntity(
@@ -87,5 +65,6 @@ class MovieDetailsModel {
         title: title,
         originalTitle: originalTitle,
         voteAverage: voteAverage,
+        runtime: runtime,
       );
 }
