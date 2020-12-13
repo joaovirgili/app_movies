@@ -2,9 +2,6 @@
   MovieApp - TheMovieDB
 </h1>
 
-
-<img src="https://i.imgur.com/lXKL6Bq.mp4" width="150"/>
-
 # :rocket: Como rodar o app?
 
 1. Certifique-se de ter o Flutter instalado: https://flutter.dev/
@@ -16,11 +13,6 @@
 4. Certifique-se de ter um emulador iniciado ou um celular plugado com as Ferramentas de Desenvolver ativadas.
 
 5. Pronto. Para rodar em modo debug, execute o comando `flutter run` ou em modo release `flutter run --release`. Para gerar o apk, execute `flutter build apk`.
-
-# :calling: APK
-
-Se por alguma razão não conseguiu executar o app, o apk `movies.apk` para a instalação do mesmo se encontra na pasta `files` na raiz do projeto.
-
 
 # :computer: Implementação
 
