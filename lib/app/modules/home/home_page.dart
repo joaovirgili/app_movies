@@ -118,7 +118,7 @@ class _HomePageState extends ModularState<HomePage, HomeController>
             ),
             SliverToBoxAdapter(child: const SpaceY(20)),
             Observer(builder: (_) {
-              return controller.isLoadingGenre
+              return !controller.showMovies
                   ? _buildLoadingMovies()
                   : _buildMovieListView(controller.movieList
                       .where(controller.filterByTitle)
@@ -142,12 +142,12 @@ class _HomePageState extends ModularState<HomePage, HomeController>
               title: currentMovie.title,
               genres: controller.genresToName(currentMovie.genreIds),
               image: currentMovie.posterPath,
-              onTap: () => Modular.to
-                  .pushNamed(AppRoutes.movie, arguments: currentMovie),
+              onTap: () => Modular.to.pushNamed(AppRoutes.movie,
+                  arguments: currentMovie.copyWith()),
             ),
           );
         },
-        childCount: movies.length,
+        childCount: 1,
       ),
     );
   }
