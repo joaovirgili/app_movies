@@ -56,11 +56,9 @@ class _MovieDetailsPageState
             child: Column(
               children: [
                 CustomAppBar(),
-                Hero(
-                  tag: widget.moviePreview.id,
-                  child: MoviePosterWidget(
-                    image: widget.moviePreview.posterPath,
-                  ),
+                MoviePosterWidget(
+                  image: widget.moviePreview.posterPath,
+                  heroTag: widget.moviePreview.id,
                 ),
                 SpaceY(32),
                 Observer(builder: (_) {

@@ -5,10 +5,12 @@ import '../../../../../shared/colors.dart';
 
 class MoviePosterWidget extends StatelessWidget {
   const MoviePosterWidget({
+    @required this.heroTag,
     @required this.image,
   });
 
   final String image;
+  final dynamic heroTag;
 
   @override
   Widget build(BuildContext context) {
@@ -19,11 +21,14 @@ class MoviePosterWidget extends StatelessWidget {
           Positioned(
             child: Container(height: 150.h, color: AppColors.gray00),
           ),
-          Center(
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(8.0),
-              clipBehavior: Clip.hardEdge,
-              child: Image.network(image),
+          Hero(
+            tag: heroTag,
+            child: Center(
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8.0),
+                clipBehavior: Clip.hardEdge,
+                child: Image.network(image),
+              ),
             ),
           ),
         ],
