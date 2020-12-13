@@ -36,6 +36,9 @@ abstract class _HomeControllerBase with Store implements Disposable {
   bool isLoadingPage = false;
 
   @observable
+  bool isRefreshing = false;
+
+  @observable
   bool hasError = false;
 
   @observable
@@ -78,6 +81,9 @@ abstract class _HomeControllerBase with Store implements Disposable {
 
   @action
   void setHasError(bool loading) => hasError = loading;
+
+  @action
+  void setIsRefreshing(bool refresh) => isRefreshing = refresh;
 
   @action
   void setSelectedGenre(GenreEntity genre) => selectedGenre = genre;
@@ -147,6 +153,15 @@ abstract class _HomeControllerBase with Store implements Disposable {
 
   bool filterByTitle(MoviePreviewEntity movie) =>
       movie.title.toLowerCase().contains(filterText.toLowerCase());
+
+  Future<void> refreshPage() async {
+    setIsRefreshing(true);
+    try {
+      await fetchMovieList();
+    } catch (_) {}
+    await Future.delayed(Duration(milliseconds: 500));
+    setIsRefreshing(false);
+  }
 
   @override
   void dispose() {

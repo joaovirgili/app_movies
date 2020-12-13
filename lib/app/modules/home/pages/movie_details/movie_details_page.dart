@@ -3,12 +3,12 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobx/mobx.dart';
-import 'package:movies/app/shared/components/flushbar_erro_widget.dart';
 
 import '../../../../../domain/entities/entities.dart';
-import '../../../../shared/extensions/extensions.dart';
 import '../../../../shared/components/components.dart';
+import '../../../../shared/components/flushbar_erro_widget.dart';
 import '../../../../shared/components/shimmer_effetc_widget.dart';
+import '../../../../shared/extensions/extensions.dart';
 import 'components/components.dart';
 import 'movie_details_controller.dart';
 

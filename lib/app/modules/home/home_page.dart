@@ -9,7 +9,7 @@ import 'package:shimmer/shimmer.dart';
 
 import '../../../domain/entities/entities.dart';
 import '../../shared/assets.dart';
-import '../../shared/colors.dart';
+import '../../shared/components/app_smart_refresher_widget.dart';
 import '../../shared/components/flushbar_erro_widget.dart';
 import '../../shared/components/space_x_widget.dart';
 import '../../shared/components/space_y_widget.dart';
@@ -80,11 +80,6 @@ class _HomePageState extends ModularState<HomePage, HomeController>
 
   final _refreshController = RefreshController();
 
-  void _onRefresh() async {
-    await controller.fetchMovieList();
-    _refreshController.refreshCompleted();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -103,63 +98,62 @@ class _HomePageState extends ModularState<HomePage, HomeController>
       ),
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
-        child: SmartRefresher(
-          header: Theme(
-            data: Theme.of(context).copyWith(primaryColor: AppColors.blue01),
-            child: MaterialClassicHeader(),
-          ),
-          controller: _refreshController,
-          onRefresh: _onRefresh,
-          child: CustomScrollView(
-            controller: scrollController,
-            slivers: [
-              SliverAppBar(
-                titleSpacing: 20.w,
-                title: Text('Filmes'),
-                centerTitle: false,
-              ),
-              SliverToBoxAdapter(child: const SpaceY(10)),
-              SliverToBoxAdapter(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.w),
-                  child: Column(
-                    children: [
-                      TextField(
-                        onChanged: controller.onChangeFilter,
-                        decoration: InputDecoration(
-                          hintText: 'Pesquise filmes',
-                          prefixIcon: Image.asset(AppAssets.search),
-                        ),
-                      ),
-                      SpaceY(15),
-                      Observer(builder: (_) {
-                        return SizedBox(
-                          height: 25.h,
-                          child: AnimatedSwitcher(
-                            duration: const Duration(milliseconds: 250),
-                            child: controller.isLoadingGenre
-                                ? _buildGenreLoading()
-                                : _buildGenreListView(),
+        child: Observer(builder: (_) {
+          return AppSmartRefresher(
+            onRefresh: controller.refreshPage,
+            controller: _refreshController,
+            isLoading: controller.isRefreshing,
+            child: CustomScrollView(
+              controller: scrollController,
+              slivers: [
+                SliverAppBar(
+                  titleSpacing: 20.w,
+                  title: Text('Filmes'),
+                  centerTitle: false,
+                ),
+                SliverToBoxAdapter(child: const SpaceY(10)),
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.w),
+                    child: Column(
+                      children: [
+                        TextField(
+                          onChanged: controller.onChangeFilter,
+                          decoration: InputDecoration(
+                            hintText: 'Pesquise filmes',
+                            prefixIcon: Image.asset(AppAssets.search),
                           ),
-                        );
-                      }),
-                    ],
+                        ),
+                        SpaceY(15),
+                        Observer(builder: (_) {
+                          return SizedBox(
+                            height: 25.h,
+                            child: AnimatedSwitcher(
+                              duration: const Duration(milliseconds: 250),
+                              child: controller.isLoadingGenre
+                                  ? _buildGenreLoading()
+                                  : _buildGenreListView(),
+                            ),
+                          );
+                        }),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              // SliverToBoxAdapter(child: const SpaceY(20)),
-              Observer(builder: (_) {
-                return !controller.showMovies
-                    ? _buildLoadingMovies()
-                    : controller.hasError
-                        ? _buildErroMessage()
-                        : _buildMovieListView(controller.movieList
-                            .where(controller.filterByTitle)
-                            .toList());
-              }),
-            ],
-          ),
-        ),
+                // SliverToBoxAdapter(child: const SpaceY(20)),
+                Observer(builder: (_) {
+                  return !controller.showMovies
+                      ? _buildLoadingMovies()
+                      : controller.hasError
+                          ? _buildErroMessage()
+                          : _buildMovieListView(controller.movieList
+                              .where(controller.filterByTitle)
+                              .toList());
+                }),
+              ],
+            ),
+          );
+        }),
       ),
     );
   }

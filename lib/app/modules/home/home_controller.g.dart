@@ -119,6 +119,21 @@ mixin _$HomeController on _HomeControllerBase, Store {
     });
   }
 
+  final _$isRefreshingAtom = Atom(name: '_HomeControllerBase.isRefreshing');
+
+  @override
+  bool get isRefreshing {
+    _$isRefreshingAtom.reportRead();
+    return super.isRefreshing;
+  }
+
+  @override
+  set isRefreshing(bool value) {
+    _$isRefreshingAtom.reportWrite(value, super.isRefreshing, () {
+      super.isRefreshing = value;
+    });
+  }
+
   final _$hasErrorAtom = Atom(name: '_HomeControllerBase.hasError');
 
   @override
@@ -230,6 +245,17 @@ mixin _$HomeController on _HomeControllerBase, Store {
   }
 
   @override
+  void setIsRefreshing(bool refresh) {
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+        name: '_HomeControllerBase.setIsRefreshing');
+    try {
+      return super.setIsRefreshing(refresh);
+    } finally {
+      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void setSelectedGenre(GenreEntity genre) {
     final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
         name: '_HomeControllerBase.setSelectedGenre');
@@ -260,6 +286,7 @@ selectedGenre: ${selectedGenre},
 isLoadingGenre: ${isLoadingGenre},
 isLoadingMovie: ${isLoadingMovie},
 isLoadingPage: ${isLoadingPage},
+isRefreshing: ${isRefreshing},
 hasError: ${hasError},
 filterText: ${filterText},
 showMovies: ${showMovies}
