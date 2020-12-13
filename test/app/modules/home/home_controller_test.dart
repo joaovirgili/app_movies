@@ -36,15 +36,6 @@ void main() {
 
   setUp(() async {
     when(
-      fetchGenreListMock(),
-    ).thenAnswer(
-      (_) async {
-        await Future.delayed(const Duration(milliseconds: 200));
-        return [GenreEntity(name: '', id: 0)];
-      },
-    );
-
-    when(
       fetchMovieListMock(genreId: anyNamed('genreId')),
     ).thenAnswer(
       (_) async {
@@ -68,20 +59,40 @@ void main() {
   });
 
   group('fetchGenresUsecase Test', () {
+    void mockSuccess() => when(
+          fetchGenreListMock(),
+        ).thenAnswer(
+          (_) async {
+            await Future.delayed(const Duration(milliseconds: 200));
+            return [GenreEntity(name: '', id: 0)];
+          },
+        );
+
     test('Should call fetchGenresUsecase on init', () {
+      mockSuccess();
       expect(sut.isLoadingGenre, isTrue);
       verify(fetchGenreListMock()).called(1);
     });
 
     test('Should stop loading after fetchGenresUsecase finishes', () async {
+      mockSuccess();
       await sut.fetchGenreList();
       expect(sut.isLoadingGenre, isFalse);
     });
 
     test('genreList should not be empty after fetchGenresUsecase finishes',
         () async {
+      mockSuccess();
       await sut.fetchGenreList();
       expect(sut.genreList, isNotEmpty);
+    });
+
+    test('hasError should be true if fetchGenresUsecase throws exception',
+        () async {
+      when(
+        fetchGenreListMock(),
+      ).thenThrow(Exception());
+      expect(sut.hasError, isTrue);
     });
   });
 

@@ -36,6 +36,9 @@ abstract class _HomeControllerBase with Store implements Disposable {
   bool isLoadingPage = false;
 
   @observable
+  bool hasError = false;
+
+  @observable
   String filterText = '';
 
   @computed
@@ -72,6 +75,9 @@ abstract class _HomeControllerBase with Store implements Disposable {
   void setIsLoadingPage(bool loading) => isLoadingPage = loading;
 
   @action
+  void setHasError(bool loading) => hasError = loading;
+
+  @action
   void setSelectedGenre(GenreEntity genre) => selectedGenre = genre;
 
   @action
@@ -79,8 +85,13 @@ abstract class _HomeControllerBase with Store implements Disposable {
 
   Future<void> fetchGenreList() async {
     setIsLoadingGenre(true);
-    setGenreList(await fetchGenreListUsecase());
-    setSelectedGenre(genreList[0]);
+    setHasError(false);
+    try {
+      setGenreList(await fetchGenreListUsecase());
+      setSelectedGenre(genreList[0]);
+    } catch (e) {
+      setHasError(true);
+    }
     setIsLoadingGenre(false);
   }
 
