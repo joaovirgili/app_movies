@@ -10,6 +10,7 @@ class MovieDetailsEntity {
     this.productionCompanies,
     this.releaseDate,
     this.title,
+    this.voteAverage,
   });
 
   final int budget;
@@ -22,6 +23,7 @@ class MovieDetailsEntity {
   final List<String> productionCompanies;
   final DateTime releaseDate;
   final String title;
+  final double voteAverage;
 
   MovieDetailsEntity copyWith({
     int budget,

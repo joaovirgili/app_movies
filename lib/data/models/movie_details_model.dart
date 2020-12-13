@@ -12,6 +12,7 @@ class MovieDetailsModel {
     this.productionCompanies,
     this.releaseDate,
     this.title,
+    this.voteAverage,
   });
 
   final int budget;
@@ -24,6 +25,7 @@ class MovieDetailsModel {
   final List<String> productionCompanies;
   final DateTime releaseDate;
   final String title;
+  final double voteAverage;
 
   MovieDetailsModel copyWith({
     int budget,
@@ -52,18 +54,15 @@ class MovieDetailsModel {
 
   factory MovieDetailsModel.fromJson(Map<String, dynamic> json) =>
       MovieDetailsModel(
-        budget: json['budget'] == null ? null : json['budget'],
+        budget: json['budget'],
         genres: json['genres'] == null
             ? null
             : (json['genres'] as List).map((e) => e['name'] as String).toList(),
-        id: json['id'] == null ? null : json['id'],
-        originalLanguage: json['original_language'] == null
-            ? null
-            : json['original_language'],
-        originalTitle:
-            json['original_title'] == null ? null : json['original_title'],
-        overview: json['overview'] == null ? null : json['overview'],
-        posterPath: json['poster_path'] == null ? null : json['poster_path'],
+        id: json['id'],
+        originalLanguage: json['original_language'],
+        originalTitle: json['original_title'],
+        overview: json['overview'],
+        posterPath: json['poster_path'],
         productionCompanies: json['production_companies'] == null
             ? null
             : (json['production_companies'] as List)
@@ -72,7 +71,8 @@ class MovieDetailsModel {
         releaseDate: json['release_date'] == null
             ? null
             : DateTime.parse(json['release_date']),
-        title: json['title'] == null ? null : json['title'],
+        title: json['title'],
+        voteAverage: json['vote_average'],
       );
 
   MovieDetailsEntity toEntity() => MovieDetailsEntity(
@@ -86,5 +86,6 @@ class MovieDetailsModel {
         releaseDate: releaseDate,
         title: title,
         originalTitle: originalTitle,
+        voteAverage: voteAverage,
       );
 }
