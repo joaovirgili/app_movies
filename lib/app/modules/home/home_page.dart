@@ -142,8 +142,10 @@ class _HomePageState extends ModularState<HomePage, HomeController>
               title: currentMovie.title,
               genres: controller.genresToName(currentMovie.genreIds),
               image: currentMovie.posterPath,
-              onTap: () => Modular.to.pushNamed(AppRoutes.movie,
-                  arguments: currentMovie.copyWith()),
+              onTap: () => Modular.to.pushNamed(
+                AppRoutes.movie,
+                arguments: currentMovie,
+              ),
             ),
           );
         },

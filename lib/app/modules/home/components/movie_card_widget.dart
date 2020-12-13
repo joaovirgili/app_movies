@@ -19,11 +19,9 @@ class MovieCardWidget extends StatelessWidget {
 
   String _buildGenreLabel() {
     String genre = genres[0];
-    genres
-      ..removeAt(0)
-      ..forEach((element) {
-        genre += ' - $element';
-      });
+    for (var i = 1; i < genres.length; i++) {
+      genre += ' - ${genres[i]}';
+    }
     return genre;
   }
 
