@@ -1,8 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobx/mobx.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../domain/entities/entities.dart';
@@ -71,6 +73,13 @@ class _HomePageState extends ModularState<HomePage, HomeController>
     super.dispose();
   }
 
+  final _refreshController = RefreshController();
+
+  void _onRefresh() async {
+    await controller.fetchMovieList();
+    _refreshController.refreshCompleted();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -89,52 +98,59 @@ class _HomePageState extends ModularState<HomePage, HomeController>
       ),
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
-        child: CustomScrollView(
-          controller: scrollController,
-          slivers: [
-            SliverAppBar(
-              titleSpacing: 20.w,
-              title: Text('Filmes'),
-              centerTitle: false,
-            ),
-            SliverToBoxAdapter(child: const SpaceY(10)),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
-                child: Column(
-                  children: [
-                    TextField(
-                      onChanged: controller.onChangeFilter,
-                      decoration: InputDecoration(
-                        hintText: 'Pesquise filmes',
-                        prefixIcon: Image.asset(AppAssets.search),
-                      ),
-                    ),
-                    SpaceY(15),
-                    Observer(builder: (_) {
-                      return SizedBox(
-                        height: 25.h,
-                        child: AnimatedSwitcher(
-                          duration: const Duration(milliseconds: 250),
-                          child: controller.isLoadingGenre
-                              ? _buildGenreLoading()
-                              : _buildGenreListView(),
-                        ),
-                      );
-                    }),
-                  ],
+        child: SafeArea(
+          child: SmartRefresher(
+            header: MaterialClassicHeader(),
+            controller: _refreshController,
+            onRefresh: _onRefresh,
+            child: CustomScrollView(
+              controller: scrollController,
+              slivers: [
+                SliverAppBar(
+                  titleSpacing: 20.w,
+                  title: Text('Filmes'),
+                  centerTitle: false,
                 ),
-              ),
+                SliverToBoxAdapter(child: const SpaceY(10)),
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.w),
+                    child: Column(
+                      children: [
+                        TextField(
+                          onChanged: controller.onChangeFilter,
+                          decoration: InputDecoration(
+                            hintText: 'Pesquise filmes',
+                            prefixIcon: Image.asset(AppAssets.search),
+                          ),
+                        ),
+                        SpaceY(15),
+                        Observer(builder: (_) {
+                          return SizedBox(
+                            height: 25.h,
+                            child: AnimatedSwitcher(
+                              duration: const Duration(milliseconds: 250),
+                              child: controller.isLoadingGenre
+                                  ? _buildGenreLoading()
+                                  : _buildGenreListView(),
+                            ),
+                          );
+                        }),
+                      ],
+                    ),
+                  ),
+                ),
+                SliverToBoxAdapter(child: const SpaceY(20)),
+                Observer(builder: (_) {
+                  return !controller.showMovies
+                      ? _buildLoadingMovies()
+                      : _buildMovieListView(controller.movieList
+                          .where(controller.filterByTitle)
+                          .toList());
+                }),
+              ],
             ),
-            SliverToBoxAdapter(child: const SpaceY(20)),
-            Observer(builder: (_) {
-              return !controller.showMovies
-                  ? _buildLoadingMovies()
-                  : _buildMovieListView(controller.movieList
-                      .where(controller.filterByTitle)
-                      .toList());
-            }),
-          ],
+          ),
         ),
       ),
     );
