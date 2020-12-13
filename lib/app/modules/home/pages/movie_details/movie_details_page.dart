@@ -86,13 +86,22 @@ class _MovieDetailsPageState
               ],
             ),
             SpaceY(12),
-            Wrap(
-              children: [
-                GenreLabelWidget(genre: 'ação'),
-                GenreLabelWidget(genre: 'aventura'),
-                GenreLabelWidget(genre: 'sci-fi'),
-              ],
-            ),
+            Observer(builder: (_) {
+              return ShimmerEffect(
+                enable: controller.isLoading,
+                child: Wrap(
+                  children: controller.isLoading
+                      ? [
+                          GenreLabelWidget(genre: ''),
+                          GenreLabelWidget(genre: ''),
+                          GenreLabelWidget(genre: ''),
+                        ]
+                      : controller.movieDetails?.genres
+                          ?.map((e) => GenreLabelWidget(genre: e))
+                          ?.toList(),
+                ),
+              );
+            }),
             SpaceY(50),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w),

@@ -14,6 +14,7 @@ class GenreLabelWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: genre == '' ? 75 : null,
       margin: const EdgeInsets.only(right: 8),
       padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
       decoration: BoxDecoration(
