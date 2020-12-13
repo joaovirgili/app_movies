@@ -79,4 +79,10 @@ class AppStyles {
     fontWeight: FontWeight.w500,
     color: AppColors.gray06,
   );
+
+  static final genreLabel = GoogleFonts.montserrat(
+    fontSize: 14.sp,
+    fontWeight: FontWeight.w500,
+    color: AppColors.gray04,
+  );
 }

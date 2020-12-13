@@ -54,7 +54,21 @@ class _MovieDetailsPageState
                   value: '1h 20min',
                 ),
               ],
-            )
+            ),
+            SpaceY(12),
+            Wrap(
+              children: [
+                GenreLabelWidget(
+                  genre: 'ação',
+                ),
+                GenreLabelWidget(
+                  genre: 'aventura',
+                ),
+                GenreLabelWidget(
+                  genre: 'sci-fi',
+                ),
+              ],
+            ),
           ],
         ),
       ),
