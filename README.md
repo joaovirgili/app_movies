@@ -59,6 +59,8 @@ Referências:
 ## Abstração:
 <img src="https://github.com/Flutterando/Clean-Dart/raw/master/imgs/img1.png" />
 
+Obs.: Optei por chamar de `data` o que na imagem é chamado de `infra` e de `infra` o que é chamado de `external`.
+
 
 ## :mailbox_with_mail: Licença
 
