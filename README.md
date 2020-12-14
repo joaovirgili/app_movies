@@ -38,7 +38,7 @@ Referências:
 ```
 ├── lib
 │   ├── app
-|   |   ├── shared
+│   │   ├── shared
 │   │   └── modules
 │   ├── core
 │   ├── data
